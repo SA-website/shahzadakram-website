@@ -1,0 +1,118 @@
+---
+import Logo from './Logo.astro';
+
+const { pathname } = Astro.url;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/work', label: 'Work' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/now', label: 'Now' },
+  { href: '/contact', label: 'Contact' },
+];
+
+function isActive(href: string) {
+  if (href === '/') return pathname === '/';
+  return pathname.startsWith(href);
+}
+---
+
+<header class="site-header">
+  <div class="wrapper site-header__inner">
+    <a class="site-header__brand" href="/">
+      <Logo size={30} class="site-header__mark" />
+      <span>Shahzad Akram</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+  }
+
+  .site-header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  .site-header__brand:hover {
+    color: var(--color-primary);
+    opacity: 0.85;
+  }
+
+  .site-header__mark {
+    flex-shrink: 0;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--color-accent);
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .site-header__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav ul {
+      gap: var(--space-2);
+      row-gap: 0.5rem;
+    }
+  }
+</style>

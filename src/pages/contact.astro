@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const contactLinks = [
+  { label: 'Email', value: 'hello@shahzadakram.com', href: 'mailto:hello@shahzadakram.com' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/shahzadakram', href: 'https://www.linkedin.com/in/shahzadakram' },
+];
+---
+
+<Layout title="Contact" description="Get in touch — email or LinkedIn.">
+  <section class="wrapper prose page">
+    <p class="eyebrow">Contact</p>
+    <h1>Get in touch.</h1>
+    <p class="text-muted">
+      Email is the fastest way to reach me. Happy to hear pitches, questions, or disagreements
+      with anything on this site.
+    </p>
+
+    <ul class="contact-list">
+      {
+        contactLinks.map((link) => (
+          <li>
+            <span class="contact-list__label">{link.label}</span>
+            <a href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+              {link.value}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .page {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
+  }
+
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .contact-list li {
+    display: flex;
+    gap: var(--space-2);
+    align-items: baseline;
+  }
+
+  .contact-list__label {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-primary);
+    width: 6rem;
+    flex-shrink: 0;
+  }
+
+  .contact-list a {
+    font-family: var(--font-heading);
+  }
+</style>

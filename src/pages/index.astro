@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const links = [
+  {
+    href: '/about',
+    label: 'About',
+    text: 'The career, the ventures, and the ones that failed. No highlight reel.',
+  },
+  {
+    href: '/work',
+    label: 'Work',
+    text: 'Case studies from the projects that made money, and how they got there.',
+  },
+  {
+    href: '/blog',
+    label: 'Blog',
+    text: 'Field notes, venture post-mortems, and ideas graded with a verdict.',
+  },
+];
+---
+
+<Layout title="Shahzad Akram">
+  <section class="wrapper hero">
+    <p class="eyebrow">Shahzad Akram</p>
+    <h1>I build businesses on top of search, then write down what actually happened.</h1>
+    <p class="prose text-muted hero__lede">
+      Fifteen-plus years in SEO, spent mostly building and running my own ventures rather than
+      consulting on other people's. Some of them worked. This site is the honest record of both
+      kinds.
+    </p>
+  </section>
+
+  <section class="wrapper links-out">
+    {
+      links.map((link) => (
+        <a class="link-card" href={link.href}>
+          <span class="link-card__label">{link.label}</span>
+          <span class="link-card__text">{link.text}</span>
+          <span class="link-card__arrow" aria-hidden="true">
+            &rarr;
+          </span>
+        </a>
+      ))
+    }
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-4);
+  }
+
+  .hero h1 {
+    max-width: 20ch;
+  }
+
+  .hero__lede {
+    font-size: 1.2rem;
+    margin-top: var(--space-3);
+  }
+
+  .links-out {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    padding-bottom: var(--space-6);
+  }
+
+  .link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: var(--space-3);
+    border-top: 2px solid var(--color-primary);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: transform 0.15s ease;
+  }
+
+  .link-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .link-card__label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+  }
+
+  .link-card:hover .link-card__label {
+    color: var(--color-accent);
+  }
+
+  .link-card__text {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+  }
+
+  .link-card__arrow {
+    color: var(--color-accent);
+    font-family: var(--font-heading);
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 800px) {
+    .links-out {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

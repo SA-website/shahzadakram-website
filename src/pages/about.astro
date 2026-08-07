@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About" description="The SEO career, the ventures built and broken, and what I'm focused on now.">
+  <section class="wrapper prose page-header">
+    <p class="eyebrow">About</p>
+    <h1>The real story, not the highlight reel.</h1>
+  </section>
+
+  <section class="wrapper prose">
+    <h2>The SEO career</h2>
+    <p class="text-muted">
+      Placeholder — how the career actually started, the early wins, the years spent learning the
+      hard way. Name the companies and campaigns that matter. State the specific mechanics that
+      worked, not just the outcome.
+    </p>
+
+    <h2>Ventures built</h2>
+    <p class="text-muted">
+      Placeholder — a plain list of the ventures, in order, each with a one-line verdict. Link out
+      to the relevant <a href="/work">case studies</a> where there's a deeper write-up.
+    </p>
+
+    <h2>What failed, and why</h2>
+    <p class="text-muted">
+      Placeholder — the ventures that didn't work, stated as plainly as the ones that did. What
+      broke, what I misjudged, what I'd do differently. This section should read like an
+      after-action report, not an apology.
+    </p>
+
+    <h2>Current focus</h2>
+    <p class="text-muted">
+      Placeholder — what I'm actually spending my time on right now. Keep this in sync with
+      <a href="/now">/now</a>.
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-2);
+  }
+
+  section.prose {
+    padding-bottom: var(--space-4);
+  }
+
+  section.prose h2 {
+    margin-top: var(--space-4);
+  }
+
+  section.prose h2:first-of-type {
+    margin-top: 0;
+  }
+</style>
