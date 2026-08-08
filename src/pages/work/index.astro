@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
 
 const caseStudies = (await getCollection('work', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order
@@ -21,13 +22,20 @@ const caseStudies = (await getCollection('work', ({ data }) => !data.draft)).sor
     {
       caseStudies.map((entry) => (
         <a class="case-study-card" href={`/work/${entry.id}`}>
-          <div class="case-study-card__meta">
-            {entry.data.year && <span>{entry.data.year}</span>}
-            {entry.data.role && <span>{entry.data.role}</span>}
+          <ImagePlaceholder
+            class="case-study-card__thumb"
+            ratio="3 / 2"
+            label={`${entry.data.title} — thumbnail`}
+          />
+          <div class="case-study-card__content">
+            <div class="case-study-card__meta">
+              {entry.data.year && <span>{entry.data.year}</span>}
+              {entry.data.role && <span>{entry.data.role}</span>}
+            </div>
+            <h2>{entry.data.title}</h2>
+            <p class="text-muted">{entry.data.summary}</p>
+            <span class="case-study-card__link">Read the case study &rarr;</span>
           </div>
-          <h2>{entry.data.title}</h2>
-          <p class="text-muted">{entry.data.summary}</p>
-          <span class="case-study-card__link">Read the case study &rarr;</span>
         </a>
       ))
     }
@@ -49,9 +57,18 @@ const caseStudies = (await getCollection('work', ({ data }) => !data.draft)).sor
   }
 
   .case-study-card {
-    display: block;
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: var(--space-3);
+    align-items: start;
     text-decoration: none;
     color: var(--color-text);
+  }
+
+  @media (max-width: 640px) {
+    .case-study-card {
+      grid-template-columns: 1fr;
+    }
   }
 
   .case-study-card__meta {

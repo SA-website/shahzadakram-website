@@ -91,6 +91,9 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+  border: 3px solid var(--color-accent);
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 ul,

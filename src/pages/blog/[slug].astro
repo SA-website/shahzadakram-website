@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
 import { PILLARS } from '../../content.config';
 
 export async function getStaticPaths() {
@@ -24,6 +25,7 @@ const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numer
     </p>
     <h1>{entry.data.title}</h1>
     <p class="text-muted post__meta">{dateFormat.format(entry.data.pubDate)}</p>
+    <ImagePlaceholder class="post__hero" ratio="16 / 9" label={`${entry.data.title} — featured image`} />
     <div class="post__body">
       <Content />
     </div>
@@ -39,6 +41,10 @@ const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numer
   .post__meta {
     font-family: var(--font-heading);
     font-size: 0.95rem;
+  }
+
+  .post__hero {
+    margin-top: var(--space-4);
   }
 
   .post__body {

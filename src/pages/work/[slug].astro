@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
 
 export async function getStaticPaths() {
   const caseStudies = await getCollection('work', ({ data }) => !data.draft);
@@ -23,6 +24,11 @@ const { Content } = await render(entry);
     </div>
     <h1>{entry.data.title}</h1>
     <p class="text-muted case-study__summary">{entry.data.summary}</p>
+    <ImagePlaceholder
+      class="case-study__hero"
+      ratio="16 / 9"
+      label={`${entry.data.title} — hero image`}
+    />
     <div class="case-study__body">
       <Content />
     </div>
@@ -48,6 +54,10 @@ const { Content } = await render(entry);
 
   .case-study__summary {
     font-size: 1.2rem;
+  }
+
+  .case-study__hero {
+    margin-top: var(--space-4);
   }
 
   .case-study__body {
