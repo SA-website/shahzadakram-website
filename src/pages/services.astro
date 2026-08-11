@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    name: 'GA4 tracking audits',
+    text: "The exact work behind the Shilajit UK case study — checking whether your analytics actually reflect what's happening in the business, not just whether the tag fires.",
+  },
+  {
+    name: 'Technical SEO audits',
+    text: 'Crawl, indexation, site architecture, internal linking, and migration risk — the foundation issues that quietly cap everything else.',
+  },
+];
+---
+
+<Layout title="Services" description="GA4 tracking audits and technical SEO audits — a limited number of engagements at a time.">
+  <section class="wrapper prose page-header">
+    <p class="eyebrow">Services</p>
+    <h1>Need this fixed on your own site?</h1>
+    <p class="text-muted">
+      I take on a limited number of GA4 tracking audits and technical SEO audits at a time — the
+      same work behind the <a href="/work/shilajit-uk">Shilajit UK case study</a>.
+    </p>
+  </section>
+
+  <section class="wrapper services-list">
+    {
+      services.map((service) => (
+        <div class="service-card">
+          <h2>{service.name}</h2>
+          <p class="text-muted">{service.text}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="wrapper prose contact-cta">
+    <h2>Get in touch</h2>
+    <p class="text-muted">Send a message and I'll reply myself.</p>
+    <a class="button" href="/contact">Contact me</a>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-3);
+  }
+
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    padding-bottom: var(--space-5);
+  }
+
+  .service-card {
+    padding: var(--space-3);
+    border-top: 2px solid var(--color-primary);
+  }
+
+  .contact-cta {
+    padding-bottom: var(--space-6);
+  }
+
+  @media (max-width: 640px) {
+    .services-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
