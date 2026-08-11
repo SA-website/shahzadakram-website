@@ -1,21 +1,64 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
 
-const links = [
+const stats = [
+  { value: '172%', label: 'Growth in Google Search impressions for World Options shipping (3.8M → 10.36M)' },
+  { value: '£43,609', label: 'Peak month revenue at Shilajit UK, the e-commerce business I founded and self-funded' },
+  { value: '£300k', label: 'Turnover generated in two years at Sweetbox Media, top-3 rankings on genuinely competitive terms' },
+  { value: '6 sites', label: '~191 franchise pages and 335 VSO pages, one SEO strategy, currently in-house at World Options' },
+];
+
+const expertise = [
+  'Technical SEO',
+  'AI Search Optimisation (AEO/GEO)',
+  'International SEO',
+  'Website Migrations',
+  'Conversion Optimisation',
+];
+
+const tools = [
+  'GA4',
+  'Search Console',
+  'Google Ads',
+  'Merchant Center',
+  'Ahrefs',
+  'Screaming Frog',
+  'WordPress',
+  'Shopify',
+  'Squarespace',
+];
+
+const ventures = [
   {
-    href: '/about',
-    label: 'About',
-    text: 'The career, the ventures, and the ones that failed. No highlight reel.',
+    name: 'Shilajit UK',
+    period: '2018 — present',
+    text: 'Founded from nothing. Built to a peak month of £43,609.44 revenue, 1,259 orders, roughly 50 orders a day — self-funded, no outside investment. Currently mid-migration off Shopify onto a custom Astro + Stripe stack, because a business I run should prove out the same technical decisions I recommend to clients.',
+    href: 'https://shilajituk.uk',
+  },
+];
+
+const posts = [
+  {
+    title: 'Internal Linking Is Still Undefeated',
+    pillar: 'Field notes',
+    description:
+      'Most sites waste their internal link equity on the nav bar and nowhere else. Fix that before you touch anything else.',
+    href: '/blog/internal-linking-is-still-undefeated',
   },
   {
-    href: '/work',
-    label: 'Work',
-    text: 'Case studies from the projects that made money, and how they got there.',
+    title: 'The Directory Site That Almost Worked',
+    pillar: 'Built / broken',
+    description:
+      'I built a niche directory to about $2k/month, then watched a single algorithm update take it to zero. What I’d keep, and what I’d never do again.',
+    href: '/blog/the-directory-site-that-almost-worked',
   },
   {
-    href: '/blog',
-    label: 'Blog',
-    text: 'Field notes, venture post-mortems, and ideas graded with a verdict.',
+    title: 'Micro-Tools for Freelancers: Worth Building?',
+    pillar: 'Idea log',
+    description:
+      'A single-purpose calculator or generator aimed at freelancers. Verdict: worth a weekend, not worth a quarter.',
+    href: '/blog/micro-tools-for-freelancers',
   },
 ];
 ---
@@ -23,26 +66,118 @@ const links = [
 <Layout title="Shahzad Akram">
   <section class="wrapper hero">
     <p class="eyebrow">Shahzad Akram</p>
-    <h1>I build businesses on top of search, then write down what actually happened.</h1>
+    <h1>I get search engines to send businesses money, then build my own to prove the method holds up.</h1>
     <p class="prose text-muted hero__lede">
-      Fifteen-plus years in SEO, spent mostly building and running my own ventures rather than
-      consulting on other people's. Some of them worked. This site is the honest record of both
-      kinds.
+      Head of SEO &amp; Digital Growth for World Options, Mail Boxes Etc. UK, and PACK &amp; SEND UK —
+      six websites, one strategy. Since 2018 I've also run Shilajit UK, an e-commerce business built
+      from nothing, because I don't trust advice I haven't tested with my own money first.
+    </p>
+    <div class="hero__ctas">
+      <a class="button" href="/work">See the work</a>
+      <a class="button button--ghost" href="/about">Read the story</a>
+    </div>
+  </section>
+
+  <section class="wrapper stats">
+    {
+      stats.map((stat) => (
+        <div class="stat">
+          <p class="stat__value">{stat.value}</p>
+          <p class="stat__label text-muted">{stat.label}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="wrapper prose narrative">
+    <p class="eyebrow">The career, briefly</p>
+    <h2>Fifteen years, one method, several bets</h2>
+    <p class="text-muted">
+      I started freelance, learning SEO against real client budgets rather than theory. At Sweetbox
+      Media I took claims-related keywords — a genuinely competitive, heavily contested vertical — to
+      top-3 rankings, generating close to £300,000 in turnover over two years. That's the proof point I
+      go back to when someone assumes SEO only works for easy, low-competition niches.
+    </p>
+    <p class="text-muted">
+      In 2018, while still building my agency career, I started Shilajit UK from scratch — no
+      background in supply chains or e-commerce, just a product and a search strategy. It grew to a
+      peak month of £43,609.44 in revenue, 1,259 orders, around 50 orders a day. Nobody funded it. I
+      built the traffic, the conversion path, and the operations myself, and I still run it today.
+    </p>
+    <p class="text-muted">
+      Since December 2020 I've been Head of SEO &amp; Digital Growth for World Options, Mail Boxes
+      Etc. UK, and PACK &amp; SEND UK, owning strategy across six websites, around 191 franchise pages,
+      and 335 VSO pages. In that time, shipping-related Search impressions grew 172% (3.8M to 10.36M),
+      organic sessions grew 21% and engaged sessions 67% in a single year, and franchise organic
+      sessions more than doubled year on year (+115%).
+    </p>
+    <p class="text-muted">
+      None of this came from one clean path. It came from repeating the same disciplined process —
+      technical foundation, content that answers real intent, links that mean something — across very
+      different businesses, and being honest about the ones that didn't work.
     </p>
   </section>
 
-  <section class="wrapper links-out">
-    {
-      links.map((link) => (
-        <a class="link-card" href={link.href}>
-          <span class="link-card__label">{link.label}</span>
-          <span class="link-card__text">{link.text}</span>
-          <span class="link-card__arrow" aria-hidden="true">
-            &rarr;
-          </span>
-        </a>
-      ))
-    }
+  <section class="wrapper expertise">
+    <p class="eyebrow">Core expertise</p>
+    <h2>What I actually do</h2>
+    <ul class="expertise__list">
+      {expertise.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="expertise__tools text-muted">
+      Tools: {tools.join(' · ')}
+    </p>
+  </section>
+
+  <section class="wrapper ventures">
+    <p class="eyebrow">Ventures</p>
+    <h2>Built, not just advised on</h2>
+    <div class="ventures__grid">
+      {
+        ventures.map((venture) => (
+          <div class="venture-card">
+            <ImagePlaceholder ratio="16 / 10" label={`${venture.name} — image`} />
+            <h3>{venture.name}</h3>
+            {venture.period && <p class="venture-card__period text-muted">{venture.period}</p>}
+            <p class="text-muted">{venture.text}</p>
+            {venture.href && (
+              <a class="link-arrow" href={venture.href} target="_blank" rel="noopener">
+                Visit site &rarr;
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrapper blog-teaser">
+    <p class="eyebrow">From the blog</p>
+    <h2>Field notes, case studies, and verdicts</h2>
+    <div class="links-out">
+      {
+        posts.map((post) => (
+          <a class="link-card" href={post.href}>
+            <span class="link-card__label">{post.pillar}</span>
+            <span class="link-card__title">{post.title}</span>
+            <span class="link-card__text">{post.description}</span>
+            <span class="link-card__arrow" aria-hidden="true">
+              &rarr;
+            </span>
+          </a>
+        ))
+      }
+    </div>
+    <a class="button button--ghost" href="/blog">Read all posts</a>
+  </section>
+
+  <section class="wrapper contact-cta prose">
+    <p class="eyebrow">Get in touch</p>
+    <h2>Want to talk SEO, a venture, or both?</h2>
+    <p class="text-muted">
+      Send a message and I'll reply myself — no forms that go into a queue nobody reads.
+    </p>
+    <a class="button" href="/contact">Contact me</a>
   </section>
 </Layout>
 
@@ -53,7 +188,7 @@ const links = [
   }
 
   .hero h1 {
-    max-width: 20ch;
+    max-width: 22ch;
   }
 
   .hero__lede {
@@ -61,17 +196,110 @@ const links = [
     margin-top: var(--space-3);
   }
 
+  .hero__ctas {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .stat__value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 2vw + 1rem, 2.5rem);
+    color: var(--color-accent);
+    margin-bottom: 0.35rem;
+  }
+
+  .stat__label {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .narrative {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+  }
+
+  .expertise {
+    padding-bottom: var(--space-5);
+  }
+
+  .expertise__list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: var(--space-3) 0;
+  }
+
+  .expertise__list li {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    padding: 0.5em 1em;
+    border-radius: 3px;
+    margin-bottom: 0;
+  }
+
+  .expertise__tools {
+    font-size: 0.95rem;
+  }
+
+  .ventures {
+    padding-bottom: var(--space-5);
+  }
+
+  .ventures__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 24rem));
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .venture-card h3 {
+    margin-top: var(--space-2);
+  }
+
+  .venture-card__period {
+    font-size: 0.85rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .link-arrow {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .blog-teaser {
+    padding-bottom: var(--space-5);
+  }
+
   .links-out {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-3);
-    padding-bottom: var(--space-6);
+    margin: var(--space-3) 0 var(--space-4);
   }
 
   .link-card {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
     padding: var(--space-3);
     border-top: 2px solid var(--color-primary);
     text-decoration: none;
@@ -85,18 +313,27 @@ const links = [
 
   .link-card__label {
     font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .link-card__title {
+    font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     color: var(--color-primary);
   }
 
-  .link-card:hover .link-card__label {
+  .link-card:hover .link-card__title {
     color: var(--color-accent);
   }
 
   .link-card__text {
     color: var(--color-text-muted);
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .link-card__arrow {
@@ -105,7 +342,16 @@ const links = [
     margin-top: 0.5rem;
   }
 
+  .contact-cta {
+    padding-bottom: var(--space-6);
+  }
+
   @media (max-width: 800px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ventures__grid,
     .links-out {
       grid-template-columns: 1fr;
     }
