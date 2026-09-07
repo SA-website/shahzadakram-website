@@ -2,17 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 
 const contactLinks = [
-  { label: 'Email', value: 'hello@shahzadakram.com', href: 'mailto:hello@shahzadakram.com' },
+  { label: 'Email', value: 'contact@shahzadakram.com', href: 'mailto:contact@shahzadakram.com' },
   { label: 'LinkedIn', value: 'linkedin.com/in/shahzadakram', href: 'https://www.linkedin.com/in/shahzadakram' },
 ];
 ---
 
-<Layout title="Contact" description="Get in touch — email or LinkedIn.">
+<Layout title="Contact" description="Get in touch — send a message or email directly.">
   <section class="wrapper prose page">
     <p class="eyebrow">Contact</p>
     <h1>Get in touch.</h1>
     <p class="text-muted">
-      Email is the fastest way to reach me. Happy to hear pitches, questions, or disagreements
+      Use the form below, or email directly. Happy to hear pitches, questions, or disagreements
       with anything on this site.
     </p>
 
@@ -28,6 +28,32 @@ const contactLinks = [
         ))
       }
     </ul>
+
+    <form id="contact-form" class="contact-form" method="POST" action="/api/contact" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" autocomplete="name" required maxlength="200" />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" required maxlength="200" />
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required maxlength="5000"></textarea>
+      </div>
+
+      <div class="field field--honeypot" aria-hidden="true">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <button type="submit" class="button">Send message</button>
+
+      <p class="form-status" data-status role="status" aria-live="polite"></p>
+    </form>
   </section>
 </Layout>
 
@@ -63,4 +89,134 @@ const contactLinks = [
   .contact-list a {
     font-family: var(--font-heading);
   }
+
+  .contact-form {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 32rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .field label {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+  }
+
+  .field input,
+  .field textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.65em 0.8em;
+    resize: vertical;
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: 2px solid var(--color-primary-light);
+    outline-offset: 1px;
+  }
+
+  .field--honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    left: -9999px;
+  }
+
+  .contact-form .button {
+    align-self: flex-start;
+    border: none;
+    cursor: pointer;
+  }
+
+  .contact-form .button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-status {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+  }
+
+  .form-status[data-state='success'] {
+    color: var(--color-primary);
+  }
+
+  .form-status[data-state='error'] {
+    color: var(--color-accent);
+  }
 </style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const status = document.querySelector<HTMLParagraphElement>('[data-status]');
+
+  // Show a status message if the browser landed here via the no-JS redirect fallback.
+  const params = new URLSearchParams(window.location.search);
+  if (status) {
+    if (params.get('sent') === '1') {
+      status.textContent = 'Thanks — your message has been sent.';
+      status.dataset.state = 'success';
+    } else if (params.get('error') === '1') {
+      status.textContent = 'Something went wrong. Please try again or email directly.';
+      status.dataset.state = 'error';
+    }
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    submitButton && (submitButton.disabled = true);
+    if (status) {
+      status.textContent = 'Sending…';
+      status.dataset.state = '';
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const data = await response.json().catch(() => ({ ok: false }));
+
+      if (response.ok && data.ok) {
+        form.reset();
+        if (status) {
+          status.textContent = 'Thanks — your message has been sent.';
+          status.dataset.state = 'success';
+        }
+      } else if (status) {
+        status.textContent = data.error || 'Something went wrong. Please try again or email directly.';
+        status.dataset.state = 'error';
+      }
+    } catch {
+      if (status) {
+        status.textContent = 'Something went wrong. Please try again or email directly.';
+        status.dataset.state = 'error';
+      }
+    } finally {
+      submitButton && (submitButton.disabled = false);
+    }
+  });
+</script>
