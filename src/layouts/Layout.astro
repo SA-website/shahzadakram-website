@@ -63,6 +63,20 @@ const siteJsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
     <script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)} />
+
+    {
+      import.meta.env.PROD && (
+        <>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-DYWKHMGS5J" />
+          <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DYWKHMGS5J');
+          </script>
+        </>
+      )
+    }
   </head>
   <body>
     <Nav />
