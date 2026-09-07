@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 const services = [
   {
@@ -15,6 +16,7 @@ const services = [
 
 <Layout title="Services" description="GA4 tracking audits and technical SEO audits — a limited number of engagements at a time.">
   <section class="wrapper prose page-header">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Services' }]} />
     <p class="eyebrow">Services</p>
     <h1>Need this fixed on your own site?</h1>
     <p class="text-muted">

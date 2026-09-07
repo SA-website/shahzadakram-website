@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const pillarPages = (await getCollection('pillars', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<Layout
+  title="SEO Guides"
+  description="Digital marketing and SEO guides from Shahzad Akram — technical SEO, AI search optimisation, international SEO, migrations, and conversion optimisation."
+>
+  <section class="wrapper prose page-header">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'SEO Guides' }]} />
+    <p class="eyebrow">SEO Guides</p>
+    <h1>What I actually do, written up properly.</h1>
+    <p class="text-muted">
+      Five areas, each with a hub page linking out to the case studies and field notes behind it.
+    </p>
+  </section>
+
+  <section class="wrapper pillar-grid">
+    {
+      pillarPages.map((pillar) => (
+        <a class="pillar-card" href={`/seo/${pillar.id}`}>
+          <h2>{pillar.data.title}</h2>
+          <p class="text-muted">{pillar.data.summary}</p>
+          <span class="pillar-card__link">Read the guide &rarr;</span>
+        </a>
+      ))
+    }
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-3);
+  }
+
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    padding-bottom: var(--space-6);
+  }
+
+  .pillar-card {
+    padding: var(--space-3);
+    border-top: 2px solid var(--color-primary);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: transform 0.15s ease;
+  }
+
+  .pillar-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .pillar-card:hover h2 {
+    color: var(--color-accent);
+  }
+
+  .pillar-card__link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .pillar-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

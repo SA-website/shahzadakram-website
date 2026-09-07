@@ -18,6 +18,29 @@ const {
 } = Astro.props;
 const pageTitle = pageTitleOverride ?? (title === 'Shahzad Akram' ? title : `${title} · Shahzad Akram`);
 const ogImageUrl = new URL(ogImage, Astro.site);
+const siteUrl = new URL('/', Astro.site).toString();
+
+const siteJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${siteUrl}#person`,
+      name: 'Shahzad Akram',
+      url: siteUrl,
+      jobTitle: 'Head of SEO & Digital Growth',
+      sameAs: ['https://www.linkedin.com/in/shahzadakram'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      url: siteUrl,
+      name: 'Shahzad Akram',
+      description: 'Shahzad Akram — SEO, ventures, and writing about both.',
+      publisher: { '@id': `${siteUrl}#person` },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -39,6 +62,7 @@ const ogImageUrl = new URL(ogImage, Astro.site);
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)} />
   </head>
   <body>
     <Nav />

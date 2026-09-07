@@ -4,6 +4,7 @@ summary: "£430k in lifetime revenue, 10,800 customers — and a broken tracking
 role: "Founder"
 year: "2018 — present"
 order: 0
+topics: [technical-seo, conversion-optimisation, website-migrations]
 ---
 
 *This case study is a work in progress — the numbers below are real, the full write-up is still being drafted.*

@@ -2,6 +2,7 @@
 title: "How to Actually Diagnose Zero Conversions When the Ads Are Working"
 description: "Ads are spending, clicks are coming in, and your dashboard says nobody's buying. Before you panic, check whether the ads are actually the problem."
 pillar: field-notes
+topics: [technical-seo, conversion-optimisation]
 pubDate: 2026-08-11
 ---
 

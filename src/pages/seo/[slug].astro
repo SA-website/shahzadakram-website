@@ -1,0 +1,127 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { TOPICS, type TopicSlug } from '../../content.config';
+
+export async function getStaticPaths() {
+  const pillarPages = await getCollection('pillars', ({ data }) => !data.draft);
+  return pillarPages.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const slug = entry.id as TopicSlug;
+
+const [relatedWork, relatedPosts] = await Promise.all([
+  getCollection('work', ({ data }) => !data.draft && data.topics.includes(slug)),
+  getCollection('blog', ({ data }) => !data.draft && data.topics.includes(slug)),
+]);
+
+relatedPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: entry.data.title,
+  description: entry.data.description,
+  url: new URL(`/seo/${entry.id}`, Astro.site).toString(),
+  hasPart: [...relatedWork, ...relatedPosts].map((item) => ({
+    '@type': 'CreativeWork',
+    name: item.data.title,
+  })),
+};
+---
+
+<Layout title={entry.data.title} description={entry.data.description}>
+  <article class="wrapper prose pillar">
+    <Breadcrumbs
+      items={[{ label: 'Home', href: '/' }, { label: 'SEO Guides', href: '/seo' }, { label: entry.data.title }]}
+    />
+    <p class="eyebrow">SEO Guide</p>
+    <h1>{entry.data.title}</h1>
+    <p class="text-muted pillar__summary">{entry.data.summary}</p>
+
+    <div class="pillar__body">
+      <Content />
+    </div>
+
+    {
+      relatedWork.length > 0 && (
+        <div class="pillar__related">
+          <h2>Related work</h2>
+          <ul>
+            {relatedWork.map((item) => (
+              <li>
+                <a href={`/work/${item.id}`}>{item.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      relatedPosts.length > 0 && (
+        <div class="pillar__related">
+          <h2>From the blog</h2>
+          <ul>
+            {relatedPosts.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}`}>{post.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </article>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<style>
+  .pillar {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
+  }
+
+  .pillar__summary {
+    font-size: 1.2rem;
+  }
+
+  .pillar__body {
+    margin-top: var(--space-4);
+  }
+
+  .pillar__body h2 {
+    margin-top: var(--space-4);
+  }
+
+  .pillar__related {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .pillar__related h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .pillar__related ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pillar__related a {
+    font-family: var(--font-heading);
+    font-weight: 500;
+  }
+</style>

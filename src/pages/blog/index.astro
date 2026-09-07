@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { PILLARS } from '../../content.config';
+import { PILLARS, TOPICS } from '../../content.config';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 
 const pillarOrder = Object.keys(PILLARS) as (keyof typeof PILLARS)[];
+const topicOrder = Object.keys(TOPICS) as (keyof typeof TOPICS)[];
 
 const groups = pillarOrder.map((key) => ({
   key,
@@ -24,6 +25,19 @@ const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
     <h1>Writing organised by what it's for, not when it was posted.</h1>
   </section>
 
+  <section class="wrapper topic-browse">
+    <p class="eyebrow">Browse by topic</p>
+    <div class="topic-browse__links">
+      {
+        topicOrder.map((key) => (
+          <a class="topic-browse__link" href={`/seo/${key}`}>
+            {TOPICS[key].label}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
   <section class="wrapper pillars">
     {
       groups.map((group) => (
@@ -37,7 +51,14 @@ const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
             {
               group.posts.map((post) => (
                 <a class="post-row" href={`/blog/${post.id}`}>
-                  <span class="post-row__title">{post.data.title}</span>
+                  <span class="post-row__main">
+                    <span class="post-row__title">{post.data.title}</span>
+                    {post.data.topics.length > 0 && (
+                      <span class="post-row__topics">
+                        {post.data.topics.map((t) => TOPICS[t].label).join(' · ')}
+                      </span>
+                    )}
+                  </span>
                   <span class="post-row__date">{dateFormat.format(post.data.pubDate)}</span>
                 </a>
               ))
@@ -54,6 +75,33 @@ const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
   .page-header {
     padding-top: var(--space-4);
     padding-bottom: var(--space-3);
+  }
+
+  .topic-browse {
+    padding-bottom: var(--space-4);
+  }
+
+  .topic-browse__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-1);
+  }
+
+  .topic-browse__link {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    padding: 0.4em 0.9em;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+
+  .topic-browse__link:hover {
+    color: var(--color-accent);
   }
 
   .pillars {
@@ -93,12 +141,24 @@ const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
     font-family: var(--font-heading);
   }
 
+  .post-row__main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
   .post-row__title {
     font-weight: 500;
   }
 
   .post-row:hover .post-row__title {
     color: var(--color-accent);
+  }
+
+  .post-row__topics {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
   }
 
   .post-row__date {

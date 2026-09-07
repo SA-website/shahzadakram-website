@@ -1,13 +1,64 @@
 ---
+import { TOPICS } from '../content.config';
+
 const year = new Date().getFullYear();
+
+const exploreLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Work', href: '/work' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Services', href: '/services' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const topicLinks = Object.entries(TOPICS).map(([slug, data]) => ({
+  label: data.label,
+  href: `/seo/${slug}`,
+}));
+
+const connectLinks = [
+  { label: 'Email', href: 'mailto:hello@shahzadakram.com' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/shahzadakram' },
+];
 ---
 
 <footer class="site-footer">
-  <div class="wrapper site-footer__inner">
+  <div class="wrapper site-footer__grid">
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Explore</p>
+      <ul>
+        {exploreLinks.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <p class="site-footer__heading">SEO Guides</p>
+      <ul>
+        {topicLinks.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Connect</p>
+      <ul>
+        {connectLinks.map((link) => (
+          <li>
+            <a href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrapper site-footer__bottom">
     <p class="text-muted">&copy; {year} Shahzad Akram.</p>
-    <p class="text-muted">
-      <a href="/contact">Get in touch</a>
-    </p>
   </div>
 </footer>
 
@@ -17,19 +68,59 @@ const year = new Date().getFullYear();
     margin-top: var(--space-6);
   }
 
-  .site-footer__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    padding-top: var(--space-3);
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+    padding-top: var(--space-4);
     padding-bottom: var(--space-3);
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
   }
 
-  .site-footer p {
+  .site-footer__heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .site-footer__col ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .site-footer__col a {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .site-footer__col a:hover {
+    color: var(--color-accent);
+  }
+
+  .site-footer__bottom {
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-3);
+    border-top: 1px solid var(--color-border);
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+  }
+
+  .site-footer__bottom p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 </style>

@@ -2,6 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { TOPICS } from '../../content.config';
 
 export async function getStaticPaths() {
   const caseStudies = await getCollection('work', ({ data }) => !data.draft);
@@ -13,10 +15,20 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: entry.data.title,
+  about: entry.data.summary,
+  author: { '@type': 'Person', name: 'Shahzad Akram', url: new URL('/', Astro.site).toString() },
+  url: new URL(`/work/${entry.id}`, Astro.site).toString(),
+};
 ---
 
 <Layout title={entry.data.title} description={entry.data.summary}>
   <article class="wrapper prose case-study">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Work', href: '/work' }, { label: entry.data.title }]} />
     <p class="eyebrow"><a href="/work">Work</a></p>
     <div class="case-study__meta">
       {entry.data.year && <span>{entry.data.year}</span>}
@@ -24,6 +36,17 @@ const { Content } = await render(entry);
     </div>
     <h1>{entry.data.title}</h1>
     <p class="text-muted case-study__summary">{entry.data.summary}</p>
+    {
+      entry.data.topics.length > 0 && (
+        <div class="case-study__topics">
+          {entry.data.topics.map((topic) => (
+            <a class="case-study__topic" href={`/seo/${topic}`}>
+              {TOPICS[topic].label}
+            </a>
+          ))}
+        </div>
+      )
+    }
     <ImagePlaceholder
       class="case-study__hero"
       ratio="16 / 9"
@@ -34,6 +57,8 @@ const { Content } = await render(entry);
     </div>
   </article>
 </Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
 <style>
   .case-study {
@@ -54,6 +79,25 @@ const { Content } = await render(entry);
 
   .case-study__summary {
     font-size: 1.2rem;
+  }
+
+  .case-study__topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-2);
+  }
+
+  .case-study__topic {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    padding: 0.3em 0.75em;
+    border-radius: 3px;
+    text-decoration: none;
   }
 
   .case-study__hero {

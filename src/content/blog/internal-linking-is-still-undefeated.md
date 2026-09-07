@@ -2,6 +2,7 @@
 title: "Internal Linking Is Still Undefeated"
 description: "Most sites waste their internal link equity on the nav bar and nowhere else. Fix that before you touch anything else."
 pillar: field-notes
+topics: [technical-seo]
 pubDate: 2026-06-02
 ---
 

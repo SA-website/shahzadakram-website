@@ -2,6 +2,7 @@
 title: "What Shilajit UK Actually Taught Me"
 description: "Ten thousand customers and £430k in lifetime revenue later — the honest lessons from running my own e-commerce business, not the highlight reel."
 pillar: built-broken
+topics: [technical-seo, conversion-optimisation]
 pubDate: 2026-08-11
 ---
 
