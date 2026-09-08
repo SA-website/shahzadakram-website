@@ -4,6 +4,7 @@ import { createMimeMessage } from 'mimetext';
 const FROM_ADDRESS = 'contact@shahzadakram.com';
 const TO_ADDRESS = 'shazakram82@yahoo.com';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -14,6 +15,22 @@ function jsonResponse(body, status = 200) {
 
 function redirect(url, status = 303) {
   return new Response(null, { status, headers: { Location: url } });
+}
+
+async function verifyTurnstile(token, secret, ip) {
+  if (!secret || !token) return false;
+  try {
+    const body = new FormData();
+    body.append('secret', secret);
+    body.append('response', token);
+    if (ip) body.append('remoteip', ip);
+
+    const res = await fetch(TURNSTILE_VERIFY_URL, { method: 'POST', body });
+    const data = await res.json();
+    return data.success === true;
+  } catch {
+    return false;
+  }
 }
 
 export async function onRequestPost(context) {
@@ -31,6 +48,7 @@ export async function onRequestPost(context) {
   const email = (formData.get('email') || '').toString().trim();
   const message = (formData.get('message') || '').toString().trim();
   const honeypot = (formData.get('company') || '').toString().trim();
+  const turnstileToken = (formData.get('cf-turnstile-response') || '').toString();
 
   // Bot caught by honeypot — pretend success, do nothing.
   if (honeypot) {
@@ -49,6 +67,13 @@ export async function onRequestPost(context) {
 
   if (!EMAIL_RE.test(email)) {
     return isJson ? jsonResponse({ ok: false, error: 'Please enter a valid email address.' }, 400) : redirect('/contact?error=1');
+  }
+
+  const captchaOk = await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP'));
+  if (!captchaOk) {
+    return isJson
+      ? jsonResponse({ ok: false, error: 'Captcha verification failed. Please try again.' }, 400)
+      : redirect('/contact?error=1');
   }
 
   try {

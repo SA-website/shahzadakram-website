@@ -50,12 +50,16 @@ const contactLinks = [
         <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
       </div>
 
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEr7rKETVXJKCDfu"></div>
+
       <button type="submit" class="button">Send message</button>
 
       <p class="form-status" data-status role="status" aria-live="polite"></p>
     </form>
   </section>
 </Layout>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <style>
   .page {
@@ -217,6 +221,8 @@ const contactLinks = [
       }
     } finally {
       submitButton && (submitButton.disabled = false);
+      // Turnstile tokens are single-use — reset the widget so a retry gets a fresh token.
+      (window as any).turnstile?.reset();
     }
   });
 </script>
