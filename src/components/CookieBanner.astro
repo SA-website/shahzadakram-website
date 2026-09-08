@@ -1,0 +1,132 @@
+---
+const GA_MEASUREMENT_ID = 'G-RTXDZDC8RY';
+---
+
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <div class="wrapper cookie-banner__inner">
+    <p class="cookie-banner__text">
+      This site uses cookies for analytics. See the <a href="/privacy-policy">Privacy Policy</a> for
+      details.
+    </p>
+    <div class="cookie-banner__actions">
+      <button id="cookie-decline" type="button" class="button button--ghost cookie-banner__btn">Decline</button>
+      <button id="cookie-accept" type="button" class="button cookie-banner__btn">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ GA_MEASUREMENT_ID, isProd: import.meta.env.PROD }}>
+  const CONSENT_KEY = 'cookie-consent';
+
+  function loadAnalytics() {
+    if (!isProd || window.__gaLoaded) return;
+    window.__gaLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_MEASUREMENT_ID);
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(script);
+  }
+
+  const banner = document.getElementById('cookie-banner');
+  let consent;
+  try {
+    consent = localStorage.getItem(CONSENT_KEY);
+  } catch (e) {
+    consent = null;
+  }
+
+  if (consent === 'accepted') {
+    loadAnalytics();
+  } else if (consent !== 'declined' && banner) {
+    banner.hidden = false;
+  }
+
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    try {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+    } catch (e) {}
+    loadAnalytics();
+    if (banner) banner.hidden = true;
+  });
+
+  document.getElementById('cookie-decline')?.addEventListener('click', () => {
+    try {
+      localStorage.setItem(CONSENT_KEY, 'declined');
+    } catch (e) {}
+    if (banner) banner.hidden = true;
+  });
+</script>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: var(--color-primary);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cookie-banner[hidden] {
+    display: none;
+  }
+
+  .cookie-banner__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+  }
+
+  .cookie-banner__text {
+    margin: 0;
+    color: var(--color-bg);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    max-width: 40rem;
+  }
+
+  .cookie-banner__text a {
+    color: var(--color-bg);
+    text-decoration-color: var(--color-bg);
+  }
+
+  .cookie-banner__actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .cookie-banner__btn {
+    font-size: 0.85rem;
+    padding: 0.55em 1.1em;
+  }
+
+  .cookie-banner .button--ghost {
+    color: var(--color-bg);
+    border-color: var(--color-bg);
+  }
+
+  .cookie-banner .button--ghost:hover {
+    background-color: var(--color-bg);
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 640px) {
+    .cookie-banner__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

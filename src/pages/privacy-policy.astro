@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdated = 'September 2026';
+---
+
+<Layout
+  title="Privacy Policy"
+  description="How shahzadakram.com collects, uses, and protects your data."
+>
+  <section class="wrapper prose page">
+    <p class="eyebrow">Legal</p>
+    <h1>Privacy Policy</h1>
+    <p class="text-muted">Last updated: {lastUpdated}</p>
+
+    <p>
+      This policy explains what data shahzadakram.com ("this site", "I", "me") collects, why, and
+      how it's handled. This site is operated by Shahzad Akram, based in the UK.
+    </p>
+
+    <h2>Data I collect</h2>
+    <p class="text-muted">
+      <strong>Contact form.</strong> When you submit the contact form, I collect the name, email
+      address, and message you provide. This is used solely to respond to your enquiry and isn't
+      added to any marketing list or shared with third parties.
+    </p>
+    <p class="text-muted">
+      <strong>Analytics.</strong> This site uses Google Analytics 4 (GA4) to understand how
+      visitors use the site — pages viewed, general location (country/city level), device type,
+      and referral source. This data is aggregated and doesn't identify you personally. Analytics
+      only loads after you accept cookies via the banner (see <a href="#cookies">Cookies</a>{' '}
+      below).
+    </p>
+    <p class="text-muted">
+      <strong>Spam protection.</strong> The contact form uses Cloudflare Turnstile to verify
+      you're not a bot. Turnstile may process your IP address and browser characteristics as part
+      of that check. See{' '}
+      <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener">
+        Cloudflare's Turnstile privacy policy
+      </a>{' '}
+      for details.
+    </p>
+    <p class="text-muted">
+      <strong>Hosting and security.</strong> This site is hosted on Cloudflare, which processes
+      standard connection data (IP address, browser, request logs) to serve the site and protect
+      against abuse. See{' '}
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">
+        Cloudflare's privacy policy
+      </a>.
+    </p>
+
+    <h2 id="cookies">Cookies</h2>
+    <p class="text-muted">
+      This site uses a small number of cookies, set only after you accept them via the cookie
+      banner:
+    </p>
+    <ul class="text-muted">
+      <li><strong>Analytics cookies</strong> (Google Analytics) — used to measure site usage anonymously in aggregate.</li>
+      <li><strong>Essential cookies</strong> — used by Cloudflare Turnstile to verify form submissions on the contact page. These are necessary for the form to function and aren't optional.</li>
+    </ul>
+    <p class="text-muted">
+      You can withdraw analytics consent at any time by clearing your browser's cookies for this
+      site, or by adjusting your choice if the banner is shown again.
+    </p>
+
+    <h2>How I use your data</h2>
+    <p class="text-muted">
+      Contact form submissions are used only to reply to you. Analytics data is used only to
+      understand and improve the site. I don't sell your data, and I don't share it with third
+      parties beyond the service providers named above (Google, Cloudflare), who process it strictly
+      to provide their service.
+    </p>
+
+    <h2>Data retention</h2>
+    <p class="text-muted">
+      Contact form emails are kept in my inbox for as long as needed to handle the enquiry and
+      any follow-up, then deleted at my discretion. Analytics data is retained according to
+      Google Analytics' default retention settings.
+    </p>
+
+    <h2>Your rights</h2>
+    <p class="text-muted">
+      If you're in the UK or EU, you have rights under UK GDPR / GDPR including the right to
+      access, correct, or delete personal data I hold about you, and the right to object to
+      processing. To exercise any of these, email{' '}
+      <a href="mailto:contact@shahzadakram.com">contact@shahzadakram.com</a>.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p class="text-muted">
+      This policy may be updated occasionally to reflect changes to the site or its data
+      practices. The "last updated" date at the top reflects the most recent revision.
+    </p>
+
+    <h2>Contact</h2>
+    <p class="text-muted">
+      Questions about this policy? Email{' '}
+      <a href="mailto:contact@shahzadakram.com">contact@shahzadakram.com</a>.
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .page {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
+  }
+
+  .page h2 {
+    margin-top: var(--space-4);
+  }
+
+  .page h2:first-of-type {
+    margin-top: var(--space-3);
+  }
+
+  .page ul {
+    margin: 0 0 var(--space-3);
+  }
+</style>

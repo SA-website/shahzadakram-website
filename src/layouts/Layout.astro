@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -63,20 +64,6 @@ const siteJsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
     <script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)} />
-
-    {
-      import.meta.env.PROD && (
-        <>
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTXDZDC8RY" />
-          <script is:inline>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-RTXDZDC8RY');
-          </script>
-        </>
-      )
-    }
   </head>
   <body>
     <Nav />
@@ -84,5 +71,6 @@ const siteJsonLd = {
       <slot />
     </main>
     <Footer />
+    <CookieBanner />
   </body>
 </html>

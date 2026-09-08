@@ -1,0 +1,97 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdated = 'September 2026';
+---
+
+<Layout
+  title="Terms & Conditions"
+  description="Terms of use for shahzadakram.com."
+>
+  <section class="wrapper prose page">
+    <p class="eyebrow">Legal</p>
+    <h1>Terms &amp; Conditions</h1>
+    <p class="text-muted">Last updated: {lastUpdated}</p>
+
+    <p>
+      These terms govern your use of shahzadakram.com (this site). By browsing or using this
+      site, you agree to them. If you don't agree, please don't use the site.
+    </p>
+
+    <h2>The content</h2>
+    <p class="text-muted">
+      Articles, case studies, and guides on this site reflect my own opinions and experience.
+      They're provided for general information only and shouldn't be taken as professional advice
+      specific to your situation. Where figures, results, or case study data are shared, they
+      describe outcomes for specific businesses under specific conditions — your results may
+      differ.
+    </p>
+
+    <h2>No warranty</h2>
+    <p class="text-muted">
+      This site and its content are provided "as is", without warranties of any kind, express or
+      implied. I make reasonable efforts to keep content accurate and up to date, but I don't
+      guarantee it's complete, current, or error-free.
+    </p>
+
+    <h2>Limitation of liability</h2>
+    <p class="text-muted">
+      To the extent permitted by law, I'm not liable for any loss or damage arising from your use
+      of this site or reliance on its content, including indirect or consequential loss.
+    </p>
+
+    <h2>Intellectual property</h2>
+    <p class="text-muted">
+      Unless otherwise stated, the content on this site — text, case studies, graphics, and
+      design — is my own work and protected by copyright. You're welcome to link to this site or
+      quote short excerpts with attribution. Reproducing substantial portions of the content
+      elsewhere without permission isn't allowed.
+    </p>
+
+    <h2>External links</h2>
+    <p class="text-muted">
+      This site links to third-party sites and services (for example, LinkedIn or client
+      websites). I'm not responsible for the content, accuracy, or practices of those external
+      sites.
+    </p>
+
+    <h2>The contact form and services enquiries</h2>
+    <p class="text-muted">
+      Submitting the contact form or enquiring about services doesn't create any contractual
+      obligation on either side. Any paid engagement would be agreed separately, in writing,
+      before work begins.
+    </p>
+
+    <h2>Changes to these terms</h2>
+    <p class="text-muted">
+      These terms may be updated from time to time. Continued use of the site after changes are
+      published means you accept the updated terms.
+    </p>
+
+    <h2>Governing law</h2>
+    <p class="text-muted">
+      These terms are governed by the laws of England and Wales.
+    </p>
+
+    <h2>Contact</h2>
+    <p class="text-muted">
+      Questions about these terms? Email{' '}
+      <a href="mailto:contact@shahzadakram.com">contact@shahzadakram.com</a>.
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .page {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
+  }
+
+  .page h2 {
+    margin-top: var(--space-4);
+  }
+
+  .page h2:first-of-type {
+    margin-top: var(--space-3);
+  }
+</style>

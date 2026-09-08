@@ -1,0 +1,174 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import { TOPICS } from '../content.config';
+
+const staticPages = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Work', href: '/work' },
+  { label: 'Services', href: '/services' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'SEO Guides', href: '/seo' },
+  { label: 'Now', href: '/now' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const legalPages = [
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms & Conditions', href: '/terms' },
+];
+
+const topicPages = Object.entries(TOPICS).map(([slug, data]) => ({
+  label: data.label,
+  href: `/seo/${slug}`,
+}));
+
+const blogPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const workEntries = (await getCollection('work', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const dateFormat = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Layout title="Sitemap" description="Every page and post on shahzadakram.com, in one place.">
+  <section class="wrapper prose page-header">
+    <p class="eyebrow">Sitemap</p>
+    <h1>Everything on this site.</h1>
+    <p class="text-muted">
+      A full list of pages and posts. Looking for the machine-readable version? See the{' '}
+      <a href="/sitemap-index.xml">XML sitemap</a>.
+    </p>
+  </section>
+
+  <section class="wrapper sitemap-groups">
+    <div class="sitemap-group">
+      <h2>Pages</h2>
+      <ul>
+        {staticPages.map((page) => (
+          <li><a href={page.href}>{page.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="sitemap-group">
+      <h2>SEO Guides</h2>
+      <ul>
+        {topicPages.map((page) => (
+          <li><a href={page.href}>{page.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="sitemap-group">
+      <h2>Work</h2>
+      <ul>
+        {workEntries.map((entry) => (
+          <li><a href={`/work/${entry.id}`}>{entry.data.title}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="sitemap-group">
+      <h2>Legal</h2>
+      <ul>
+        {legalPages.map((page) => (
+          <li><a href={page.href}>{page.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrapper sitemap-blog">
+    <h2>Blog posts</h2>
+    <ul class="sitemap-blog__list">
+      {blogPosts.map((post) => (
+        <li class="sitemap-blog__item">
+          <a href={`/blog/${post.id}`}>{post.data.title}</a>
+          <span class="text-muted sitemap-blog__date">{dateFormat.format(post.data.pubDate)}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-3);
+  }
+
+  .sitemap-groups {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-3);
+    padding-bottom: var(--space-4);
+  }
+
+  .sitemap-group h2 {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-1);
+  }
+
+  .sitemap-group ul,
+  .sitemap-blog__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sitemap-group a,
+  .sitemap-blog__item a {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .sitemap-group a:hover,
+  .sitemap-blog__item a:hover {
+    color: var(--color-accent);
+  }
+
+  .sitemap-blog {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .sitemap-blog h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .sitemap-blog__item {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+    max-width: var(--content-width);
+  }
+
+  .sitemap-blog__date {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 800px) {
+    .sitemap-groups {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sitemap-groups {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
