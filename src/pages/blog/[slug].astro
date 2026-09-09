@@ -100,7 +100,13 @@ const jsonLd = {
   });
 </script>
 
-<style>
+<style is:global>
+  /* is:global is required here: scoped Astro styles don't pierce into
+     markdown rendered via <Content /> (it's compiled as a separate
+     component), so every rule below that targets body copy — headings,
+     lists, blockquotes, images — would silently fail to apply otherwise.
+     This block is still effectively page-scoped since Astro only ships
+     each route's own CSS to that route. */
   .post {
     padding-top: var(--space-4);
     padding-bottom: var(--space-6);
