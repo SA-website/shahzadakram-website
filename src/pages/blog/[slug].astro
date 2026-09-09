@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { PILLARS, TOPICS } from '../../content.config';
 
@@ -18,6 +17,22 @@ const { Content } = await render(entry);
 const pillar = PILLARS[entry.data.pillar];
 const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
+// Each pillar gets its own accent colour, so the magazine-style treatment
+// (kicker, dropcap, numbered steps, headings) visually varies post to post
+// the way a real magazine's department colour-coding does.
+const PILLAR_ACCENTS: Record<string, string> = {
+  'field-notes': 'var(--color-primary)',
+  'built-broken': 'var(--color-accent)',
+  'idea-log': 'var(--color-pillar-blue)',
+};
+const accent = PILLAR_ACCENTS[entry.data.pillar] ?? 'var(--color-accent)';
+
+// Long enough posts get a two-column, magazine-style text layout; short
+// draft/outline posts stay single-column so they don't end up with one
+// nearly-empty column.
+const wordCount = entry.body ? entry.body.trim().split(/\s+/).length : 0;
+const useColumns = wordCount > 320;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -30,32 +45,60 @@ const jsonLd = {
 ---
 
 <Layout title={entry.data.title} description={entry.data.description}>
-  <article class="wrapper prose post">
+  <article class="wrapper post" style={`--post-accent: ${accent};`}>
     <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: entry.data.title }]} />
-    <p class="eyebrow">
+    <p class="eyebrow post__eyebrow">
       <a href="/blog">Blog</a> / {pillar.label}
     </p>
-    <h1>{entry.data.title}</h1>
-    <p class="text-muted post__meta">{dateFormat.format(entry.data.pubDate)}</p>
-    {
-      entry.data.topics.length > 0 && (
-        <div class="post__topics">
-          {entry.data.topics.map((topic) => (
-            <a class="post__topic" href={`/seo/${topic}`}>
-              {TOPICS[topic].label}
-            </a>
-          ))}
-        </div>
-      )
-    }
-    <ImagePlaceholder class="post__hero" ratio="16 / 9" label={`${entry.data.title} — featured image`} />
-    <div class="post__body">
+
+    <header class="post__hero">
+      <p class="post__kicker">{pillar.label}</p>
+      <h1>{entry.data.title}</h1>
+      <p class="post__credit">Photography placeholder &middot; Shahzad Akram</p>
+    </header>
+
+    <div class="post__meta-row">
+      <p class="text-muted post__meta">{dateFormat.format(entry.data.pubDate)}</p>
+      {
+        entry.data.topics.length > 0 && (
+          <div class="post__topics">
+            {entry.data.topics.map((topic) => (
+              <a class="post__topic" href={`/seo/${topic}`}>
+                {TOPICS[topic].label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+
+    <div class:list={['post__body', useColumns && 'post__body--columns']}>
       <Content />
+      <p class="post__byline">&mdash; Shahzad Akram</p>
     </div>
   </article>
 </Layout>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<script>
+  // Progressive enhancement: if a post image uses the markdown title syntax
+  // (`![alt](src "Caption text")`), Astro renders that as the `title`
+  // attribute. Turn it into a proper <figure><figcaption> so future inline
+  // images automatically get the magazine-style caption/credit treatment.
+  document.querySelectorAll<HTMLImageElement>('.post__body img[title]').forEach((img) => {
+    if (img.closest('figure')) return;
+    const caption = img.title;
+    const figure = document.createElement('figure');
+    figure.className = 'post__figure';
+    img.replaceWith(figure);
+    figure.appendChild(img);
+    const figcaption = document.createElement('figcaption');
+    figcaption.textContent = caption;
+    figure.appendChild(figcaption);
+    img.removeAttribute('title');
+  });
+</script>
 
 <style>
   .post {
@@ -63,39 +106,274 @@ const jsonLd = {
     padding-bottom: var(--space-6);
   }
 
+  .post__eyebrow {
+    margin-bottom: var(--space-2);
+  }
+
+  /* Hero — a bold colour "cover" panel standing in for a photo, with the
+     kicker and headline set directly on top of it. */
+  .post__hero {
+    position: relative;
+    background-color: var(--post-accent);
+    border-radius: var(--radius-card);
+    padding: var(--space-5) var(--space-4) var(--space-3);
+    margin-bottom: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 16rem;
+  }
+
+  .post__kicker {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    opacity: 0.85;
+    margin: 0 0 0.5rem;
+  }
+
+  .post__hero h1 {
+    color: var(--color-bg);
+    font-size: clamp(2rem, 3.6vw + 1rem, 3.25rem);
+    letter-spacing: -0.015em;
+    margin: 0;
+    max-width: 34rem;
+  }
+
+  .post__credit {
+    align-self: flex-end;
+    margin: var(--space-2) 0 0;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    opacity: 0.6;
+  }
+
+  .post__meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
   .post__meta {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    margin: 0;
   }
 
   .post__topics {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-top: var(--space-2);
   }
 
   .post__topic {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: 0.8rem;
-    color: var(--color-primary);
+    color: var(--post-accent);
     background: var(--color-bg-alt);
     border: 1px solid var(--color-border);
     padding: 0.3em 0.75em;
-    border-radius: 3px;
+    border-radius: 999px;
     text-decoration: none;
   }
 
-  .post__hero {
-    margin-top: var(--space-4);
-  }
-
+  /* Body copy — the magazine treatment: de-emphasised H2s, a dropcap on the
+     first real paragraph, a bold lede, colour-coded numbered steps, and
+     framed/captioned images. */
   .post__body {
-    margin-top: var(--space-4);
+    max-width: 46rem;
   }
 
+  /* Lede — the opening paragraph reads as a magazine "dek". Descendant
+     (not child) selectors below are deliberate: Astro's markdown renderer
+     doesn't guarantee paragraphs are direct children of .post__body, but
+     :first-of-type / :nth-of-type still resolve correctly relative to
+     each element's own parent either way. */
+  .post__body p:first-of-type {
+    margin-top: 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--color-primary);
+  }
+
+  /* Dropcap on the first paragraph of the actual body copy. */
+  .post__body p:nth-of-type(2)::first-letter {
+    float: left;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 3.6em;
+    line-height: 0.78;
+    padding-right: 0.1em;
+    margin-top: 0.03em;
+    color: var(--post-accent);
+  }
+
+  /* H2s stay small and functional, like a magazine department rule, so
+     they don't dominate the page — the copy and imagery stay the focus. */
   .post__body h2 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--post-accent);
+    border-top: 3px solid var(--post-accent);
+    padding-top: 0.7em;
     margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .post__body h3 {
+    font-size: 1rem;
+    color: var(--post-accent);
+  }
+
+  .post__body p {
+    margin-bottom: var(--space-2);
+  }
+
+  /* Popular-Mechanics-style numbered step list: bold colour circle badges
+     instead of default numerals. */
+  .post__body ol {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-2) 0 var(--space-3);
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .post__body ol li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 3.1rem;
+    margin: 0;
+  }
+
+  .post__body ol li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: -0.05em;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background-color: var(--post-accent);
+    color: var(--color-bg);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .post__body ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-2) 0 var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .post__body ul li {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+
+  .post__body ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 0.6rem;
+    height: 0.6rem;
+    background-color: var(--post-accent);
+    border-radius: 2px;
+  }
+
+  /* Pull-quote treatment. */
+  .post__body blockquote {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: var(--color-primary);
+    border-left: 4px solid var(--post-accent);
+    padding-left: var(--space-3);
+    margin: var(--space-4) 0;
+    font-style: normal;
+  }
+
+  /* Framed, captioned images — colour border matches the post's pillar
+     accent, with a small-caps credit line underneath. */
+  .post__body img {
+    border-color: var(--post-accent);
+  }
+
+  .post__figure {
+    margin: var(--space-4) 0;
+  }
+
+  .post__figure figcaption {
+    margin-top: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .post__byline {
+    margin-top: var(--space-4);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: right;
+  }
+
+  /* Optional magazine-style two-column body copy for longer posts.
+     Headings, lists, quotes, and figures span the full width so they
+     never break awkwardly across the column gap. */
+  @media (min-width: 800px) {
+    .post__body--columns {
+      column-count: 2;
+      column-gap: var(--space-4);
+    }
+
+    .post__body--columns h2,
+    .post__body--columns h3,
+    .post__body--columns ol,
+    .post__body--columns ul,
+    .post__body--columns blockquote,
+    .post__body--columns .post__figure,
+    .post__body--columns .post__byline {
+      column-span: all;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .post__hero {
+      min-height: 12rem;
+      padding: var(--space-4) var(--space-3) var(--space-2);
+    }
   }
 </style>
