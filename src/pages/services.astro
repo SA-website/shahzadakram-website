@@ -3,25 +3,26 @@ import Layout from '../layouts/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 const services = [
+  { name: 'Franchise SEO', text: 'Search strategy across national websites, local pages and franchise recruitment platforms.', href: '/franchise-seo/' },
+  { name: 'Local & Multi-Location SEO', text: 'Useful location pages, accurate business information and clearer local enquiry journeys.', href: '/services/multi-location-seo/' },
   {
-    name: 'GA4 tracking audits',
+    name: 'GA4 tracking audits', href: '/contact/',
     text: "The exact work behind the Shilajit UK case study — checking whether your analytics actually reflect what's happening in the business, not just whether the tag fires.",
   },
   {
-    name: 'Technical SEO audits',
+    name: 'Technical SEO audits', href: '/franchise-seo/#technical-seo',
     text: 'Crawl, indexation, site architecture, internal linking, and migration risk — the foundation issues that quietly cap everything else.',
   },
 ];
 ---
 
-<Layout title="Services" description="GA4 tracking audits and technical SEO audits — a limited number of engagements at a time.">
+<Layout title="Services" description="Franchise SEO, multi-location search, technical SEO and GA4 tracking audits from Shahzad Akram.">
   <section class="wrapper prose page-header">
     <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Services' }]} />
     <p class="eyebrow">Services</p>
-    <h1>Need this fixed on your own site?</h1>
+    <h1>SEO support for your business</h1>
     <p class="text-muted">
-      I take on a limited number of GA4 tracking audits and technical SEO audits at a time — the
-      same work behind the <a href="/work/shilajit-uk">Shilajit UK case study</a>.
+      I help franchise and multi-location businesses improve search visibility and website performance. I also offer focused technical SEO and GA4 tracking audits.
     </p>
   </section>
 
@@ -31,6 +32,7 @@ const services = [
         <div class="service-card">
           <h2>{service.name}</h2>
           <p class="text-muted">{service.text}</p>
+          <a href={service.href}>Explore {service.name} &rarr;</a>
         </div>
       ))
     }

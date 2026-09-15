@@ -1,322 +1,110 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import Marquee from '../components/Marquee.astro';
-
-const marqueeItems = [
-  'Technical SEO',
-  'GA4 Tracking Audits',
-  'Conversion Optimisation',
-  'E-commerce Growth',
-  'AI Search Optimisation',
-];
-
-const entryCards = [
-  {
-    name: 'About',
-    text: "The real story — SEO career, ventures built, and what I've learned from the ones that didn't work.",
-    href: '/about',
-    cta: 'Read more',
-  },
-  {
-    name: 'Work',
-    text: 'Case studies from client work and my own e-commerce business, Shilajit UK.',
-    href: '/work',
-    cta: 'See the work',
-  },
-  {
-    name: 'Blog',
-    text: "Field notes, honest venture write-ups, and ideas I'm thinking through in public.",
-    href: '/blog',
-    cta: 'Read the blog',
-  },
-];
-
-const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 2);
-
-const contactLinks = [
-  { label: 'Email', value: 'contact@shahzadakram.com', href: 'mailto:contact@shahzadakram.com' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/shahzad-akram-b8159b5b', href: 'https://www.linkedin.com/in/shahzad-akram-b8159b5b/' },
-];
 ---
-
-<Layout
-  title="Shahzad Akram"
-  pageTitle="Shahzad Akram | SEO, Digital Marketing & E-commerce"
-  description="SEO and digital marketing insights from Shahzad Akram — real case studies, tracking audits, and lessons from building e-commerce ventures."
->
-  <section class="wrapper hero">
-    <p class="eyebrow">Shahzad Akram</p>
-    <h1>Shahzad Akram</h1>
-    <p class="prose text-muted hero__lede">
-      SEO and digital marketing — case studies, audits, and honest lessons from building my own
-      ventures.
-    </p>
-    <p class="prose text-muted hero__lede">
-      I work across SEO, GA4 analytics, and e-commerce, and I write about what actually happens
-      when you build things, including the parts that don't go to plan.
-    </p>
-    <div class="hero__ctas">
-      <a class="button" href="/work">See the work</a>
-      <a class="button button--ghost" href="/blog">Read the blog</a>
-    </div>
-  </section>
-
-  <Marquee items={marqueeItems} />
-
-  <section class="wrapper entry-cards">
-    {
-      entryCards.map((card) => (
-        <a class="entry-card" href={card.href}>
-          <h2>{card.name}</h2>
-          <p class="text-muted">{card.text}</p>
-          <span class="entry-card__link">
-            &rarr; {card.cta}
-          </span>
-        </a>
-      ))
-    }
-  </section>
-
-  <section class="wrapper prose case-study-strip">
-    <p class="eyebrow">Featured</p>
-    <h2>Shilajit UK</h2>
-    <p class="text-muted">
-      £430k in lifetime revenue, 10,800 customers — and a broken tracking setup that made a
-      working business look like a failing one for months. Here's what I found and what I did
-      about it.
-    </p>
-    <a class="link-arrow" href="/work/shilajit-uk">Read the case study &rarr;</a>
-  </section>
-
-  <section class="wrapper blog-teaser">
-    <p class="eyebrow">From the blog</p>
-    <h2>Latest from the blog</h2>
-    <div class="links-out">
-      {
-        latestPosts.map((post) => (
-          <a class="link-card" href={`/blog/${post.id}`}>
-            <span class="link-card__title">{post.data.title}</span>
-            <span class="link-card__text">{post.data.description}</span>
-            <span class="link-card__arrow" aria-hidden="true">
-              &rarr;
-            </span>
-          </a>
-        ))
-      }
-    </div>
-    <a class="button button--ghost" href="/blog">View all posts</a>
-  </section>
-
-  <section class="wrapper prose services-teaser">
-    <p class="eyebrow">Services</p>
-    <h2>Need this fixed on your own site?</h2>
-    <p class="text-muted">
-      I take on a limited number of GA4 tracking audits and technical SEO audits — the exact work
-      behind the Shilajit UK case study.
-    </p>
-    <a class="link-arrow" href="/services">See services &rarr;</a>
-  </section>
-
-  <section class="wrapper prose footer-cta">
-    <p class="eyebrow">Get in touch</p>
-    <h2>Get in touch</h2>
-    <div class="footer-cta__links">
-      {
-        contactLinks.map((link, i) => (
-          <>
-            <a href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
-              {link.label}
-            </a>
-            {i < contactLinks.length - 1 && <span class="footer-cta__sep">&middot;</span>}
-          </>
-        ))
-      }
-    </div>
-  </section>
+<Layout title="Shahzad Akram" pageTitle="Franchise &amp; Multi-Location SEO Consultant | Shahzad Akram" description="Franchise and multi-location SEO from Shahzad Akram. Improve local visibility, customer enquiries and franchise recruitment with experienced SEO support.">
+<article class="wrapper marketing">
+<section class="hero">
+<p class="eyebrow">SHAHZAD AKRAM · SEO CONSULTANT</p>
+<h1>SEO for franchise and multi-location businesses</h1>
+<p>Help more customers find your locations—and more prospective franchisees discover your business.</p>
+<p>I’m Shahzad Akram. I bring more than 15 years’ experience in SEO, lead generation and website development, including leading search strategy across World Options, Mail Boxes Etc. UK and PACK &amp; SEND UK.</p>
+<p>I help businesses connect national search strategy with local visibility, practical website improvements and measurable enquiries.</p>
+<p class="actions"><a href="/contact/">Discuss your project</a> · <a href="/work/">Explore my work</a></p>
+</section>
+<section>
+<h2>Experience across brands, locations and markets</h2>
+<p>My experience includes responsibility for:</p>
+<ul><li><strong>Six websites</strong> across a multi-brand portfolio.</li><li><strong>Approximately 191 physical store pages</strong>, alongside 335 virtual service office pages.</li><li><strong>Nine major website launches and migrations</strong> across the UK, US and Australia.</li></ul>
+<p>That work involves more than optimising pages. It means coordinating head-office priorities, franchisee needs, developers and agencies—and making sure agreed improvements reach the live website.</p>
+</section>
+<section>
+<h2>Search growth across your franchise network</h2>
+<h3>Help customers find their local business</h3>
+<p>Your national website and local presence should work together. I help improve how customers discover your services, find the right location and make an enquiry.</p>
+<p>This includes location pages, Google Business Profiles, service-area content, internal linking and the journey from search to contact.</p>
+<p><a href="/services/multi-location-seo/">Explore multi-location SEO</a></p>
+<h3>Help prospective franchisees find your opportunity</h3>
+<p>Franchise recruitment involves a different audience and a different decision. Prospective owners need to understand the opportunity, investment, support and suitability before they enquire.</p>
+<p>I help organise and improve recruitment websites so they answer those questions and support organic discovery.</p>
+<p><a href="/franchise-seo/#franchise-recruitment">Explore franchise recruitment SEO</a></p>
+</section>
+<section>
+<h2>How I can help</h2>
+<h3>Franchise &amp; Multi-Location SEO</h3>
+<p>Build a joined-up search strategy across your brand, locations and service areas. Identify gaps in local visibility and prioritise improvements across the network.</p>
+<p><a href="/franchise-seo/">Explore franchise SEO</a></p>
+<h3>Franchise Recruitment SEO</h3>
+<p>Improve how prospective franchisees find and understand your opportunity, with clearer website structure, useful content and a stronger enquiry journey.</p>
+<p><a href="/franchise-seo/#franchise-recruitment">Explore recruitment SEO</a></p>
+<h3>Technical SEO &amp; Website Migrations</h3>
+<p>Find the technical issues limiting your website, or bring SEO into a rebuild before important decisions are made. Support covers website architecture, migration planning, developer coordination and post-launch checks.</p>
+<p><a href="/franchise-seo/#technical-seo">Explore technical SEO</a></p>
+<h3>SEO Consultancy &amp; Leadership</h3>
+<p>Get experienced support with strategy, priorities and delivery. I work with internal teams and external partners to turn recommendations into clear actions and meaningful reporting.</p>
+<p><a href="/franchise-seo/#consultancy">Explore SEO consultancy</a></p>
+</section>
+<section>
+<h2>Selected experience and results</h2>
+<h3>World Options: franchise recruitment search growth</h3>
+<p>Annual organic sessions on the World Options franchise website increased by <strong>115% between 2023 and 2024</strong>, from 2,792 to 5,996, during my responsibility for SEO.</p>
+<p>My wider role covered search strategy, content, website improvements and performance reporting.</p>
+<h3>Mail Boxes Etc. UK: organic growth across an established network</h3>
+<p>After I took responsibility in March 2025, organic sessions increased by <strong>30% year on year across the first four months</strong>, from 122,923 to 159,968.</p>
+<p>The role brings together national website performance, local visibility and the needs of the franchise network.</p>
+<h3>Website launches across three markets</h3>
+<p>I have led <strong>nine major website launches and migrations across the UK, US and Australia</strong>, covering platform decisions, website structure, analytics, launch planning and coordination with delivery partners.</p>
+<p>These examples relate to work undertaken in my employed roles.</p>
+<p><a href="/work/">Explore my work</a></p>
+</section>
+<section>
+<h2>Practical experience on both sides of the website</h2>
+<p>I’ve spent my career working on websites that need to generate business.</p>
+<p>Alongside my employed SEO leadership roles, I built and operated my own Shopify business, Shilajit UK. That meant taking responsibility for the website and marketing, as well as products, fulfilment and customer service.</p>
+<p>That commercial experience shapes how I approach SEO. Rankings and traffic matter, but so do the quality of enquiries, the customer journey and whether the business can act on the opportunities being created.</p>
+<p><a href="/about/">More about me</a> · <a href="/work/shilajit-uk/">Read the Shilajit UK case study</a></p>
+</section>
+<section>
+<h2>How we would work together</h2>
+<h3>1. Understand the business</h3>
+<p>We start with your objectives, website, locations and current challenges. We establish what you need help with and who will be involved.</p>
+<h3>2. Identify the priorities</h3>
+<p>I review the relevant search performance, content, technical setup and enquiry journey, then put the findings into a practical order.</p>
+<h3>3. Move the work forward</h3>
+<p>Depending on the scope, I can make improvements directly, prepare clear briefs or coordinate delivery with your team, developers and agency.</p>
+<h3>4. Measure and refine</h3>
+<p>We review the measures that matter to the project—from search visibility and engaged visits to tracked enquiries—and use the findings to guide the next steps.</p>
+</section>
+<section>
+<h2>Notes from the work</h2>
+<p>I write about SEO, website development, analytics and the lessons of running my own businesses.</p>
+<p>Expect practical explanations, specific examples and an honest account of what worked, what needed fixing and what I learned.</p>
+<p><a href="/blog/">Read the blog</a> · <a href="/seo/">Browse SEO guides</a></p>
+</section>
+<section>
+<h2>Let’s discuss your website</h2>
+<p>Whether you manage a franchise network, need support with a migration or want an experienced second opinion on your SEO, tell me what you’re working on.</p>
+<p>Share your website and the main challenge you want to address. I’ll reply personally so we can establish whether I can help.</p>
+<p><a href="/contact/">Discuss your project</a></p>
+<p>Or email <a href="mailto:contact@shahzadakram.com">contact@shahzadakram.com</a>.</p>
+</section>
+</article>
 </Layout>
-
 <style>
-  .hero {
-    padding-top: var(--space-5);
-    padding-bottom: var(--space-4);
-  }
 
-  .hero h1 {
-    margin-bottom: var(--space-3);
-  }
+  .marketing { padding-top: var(--space-4); padding-bottom: var(--space-5); }
+  .marketing section { padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+  .marketing section:last-child { border: 0; background: var(--color-bg-alt); border-radius: var(--radius-card); padding: var(--space-4); margin-top: var(--space-4); }
+  .marketing .hero { padding-top: var(--space-2); }
+  .marketing h1 { max-width: 20ch; }
+  .marketing p, .marketing ul { max-width: 72ch; }
+  .marketing h2 { max-width: 32ch; margin-bottom: var(--space-3); }
+  .marketing h3 { margin-top: var(--space-4); scroll-margin-top: 2rem; }
+  .marketing .hero > p:first-of-type { font-size: 1.4rem; color: var(--color-primary); }
+  .marketing .hero .eyebrow { font-size: .8rem; }
+  .marketing .hero .actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 2rem; }
+  .marketing .hero .actions a:first-child, .marketing section:last-child a[href="/contact/"] { display: inline-block; background: var(--color-primary); color: var(--color-bg); border-radius: 999px; padding: .8rem 1.4rem; text-decoration: none; font-family: var(--font-heading); font-weight: 600; }
+  .marketing .hero .actions a:hover { text-decoration: underline; }
+  .marketing a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+  @media(max-width:640px) { .marketing section { padding: var(--space-3) 0; } .marketing section:last-child { padding: var(--space-3); } .marketing h1 { font-size: clamp(2rem, 9vw, 3rem); } }
 
-  .hero__lede {
-    font-size: 1.2rem;
-  }
-
-  .hero__ctas {
-    display: flex;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-    flex-wrap: wrap;
-  }
-
-  .entry-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-3);
-    padding-top: var(--space-5);
-    padding-bottom: var(--space-5);
-  }
-
-  .entry-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    padding: var(--space-4);
-    background-color: var(--color-bg-alt);
-    border-radius: var(--radius-card);
-    text-decoration: none;
-    color: var(--color-text);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .entry-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px -16px rgba(38, 36, 32, 0.35);
-  }
-
-  .entry-card:hover h2 {
-    color: var(--color-accent);
-  }
-
-  .entry-card p {
-    margin-bottom: 0;
-  }
-
-  .entry-card__link {
-    margin-top: 0.5rem;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--color-accent);
-  }
-
-  .case-study-strip {
-    margin-top: var(--space-1);
-    margin-bottom: var(--space-5);
-    padding: var(--space-4);
-    background-color: var(--color-primary);
-    border-radius: var(--radius-card);
-    max-width: none;
-  }
-
-  .case-study-strip .eyebrow,
-  .case-study-strip h2 {
-    color: var(--color-bg);
-  }
-
-  .case-study-strip .eyebrow::before {
-    background-color: var(--color-accent-light);
-  }
-
-  .case-study-strip p.text-muted {
-    color: var(--color-bg);
-    opacity: 0.85;
-    max-width: var(--content-width);
-  }
-
-  .case-study-strip .link-arrow {
-    color: var(--color-bg);
-  }
-
-  .case-study-strip .link-arrow:hover {
-    color: var(--color-accent-light);
-  }
-
-  .link-arrow {
-    display: inline-block;
-    margin-top: var(--space-2);
-    font-family: var(--font-heading);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .blog-teaser {
-    padding-bottom: var(--space-5);
-  }
-
-  .links-out {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
-    margin: var(--space-3) 0 var(--space-4);
-  }
-
-  .link-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    padding: var(--space-4);
-    background-color: var(--color-bg-alt);
-    border-radius: var(--radius-card);
-    text-decoration: none;
-    color: var(--color-text);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .link-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px -16px rgba(38, 36, 32, 0.35);
-  }
-
-  .link-card__title {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: var(--color-primary);
-  }
-
-  .link-card:hover .link-card__title {
-    color: var(--color-accent);
-  }
-
-  .link-card__text {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-  }
-
-  .link-card__arrow {
-    color: var(--color-accent);
-    font-family: var(--font-heading);
-    margin-top: 0.5rem;
-  }
-
-  .services-teaser {
-    padding-top: var(--space-4);
-    padding-bottom: var(--space-5);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .footer-cta {
-    padding-bottom: var(--space-6);
-  }
-
-  .footer-cta__links {
-    display: flex;
-    gap: var(--space-2);
-    align-items: center;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    margin-top: var(--space-2);
-  }
-
-  .footer-cta__sep {
-    color: var(--color-text-muted);
-  }
-
-  @media (max-width: 800px) {
-    .entry-cards,
-    .links-out {
-      grid-template-columns: 1fr;
-    }
-  }
 </style>
