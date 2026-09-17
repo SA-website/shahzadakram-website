@@ -4,12 +4,15 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Shahzad Akram" pageTitle="Franchise & Multi-Location SEO Consultant | Shahzad Akram" description="Franchise and multi-location SEO from Shahzad Akram. Improve local visibility, customer enquiries and franchise recruitment with experienced SEO support.">
 <article class="wrapper marketing">
 <section class="hero">
+<div class="hero-copy">
 <p class="eyebrow">SHAHZAD AKRAM · SEO CONSULTANT</p>
 <h1>SEO for franchise and multi-location businesses</h1>
 <p>Help more customers find your locations—and more prospective franchisees discover your business.</p>
 <p>I’m Shahzad Akram. I bring more than 15 years’ experience in SEO, lead generation and website development, including leading search strategy across World Options, Mail Boxes Etc. UK and PACK &amp; SEND UK.</p>
 <p>I help businesses connect national search strategy with local visibility, practical website improvements and measurable enquiries.</p>
 <p class="actions"><a href="/contact/">Discuss your project</a> · <a href="/work/">Explore my work</a></p>
+</div>
+<img class="portrait" src="/shahzad-akram-portrait.png" alt="Shahzad Akram, SEO consultant" width="1122" height="1402" loading="eager" fetchpriority="high" />
 </section>
 <section>
 <h2>Experience across brands, locations and markets</h2>
@@ -107,4 +110,9 @@ import Layout from '../layouts/Layout.astro';
   .marketing a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
   @media(max-width:640px) { .marketing section { padding: var(--space-3) 0; } .marketing section:last-child { padding: var(--space-3); } .marketing h1 { font-size: clamp(2rem, 9vw, 3rem); } }
 
+  .marketing .hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero-copy { min-width: 0; }
+  .marketing .hero h1 { font-size: clamp(2.4rem, 4.2vw, 3.7rem); }
+  .marketing .hero .portrait { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border: 0; border-radius: 20px; box-shadow: 0 14px 40px rgba(44,70,54,.12); }
+  @media(max-width:800px) { .marketing .hero { grid-template-columns: 1fr; } .marketing .hero .portrait { max-width: 28rem; justify-self: center; } }
 </style>

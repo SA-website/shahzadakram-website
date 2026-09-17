@@ -4,12 +4,15 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="About Shahzad Akram" description="Meet Shahzad Akram: more than 15 years in SEO, franchise growth, website launches and e-commerce, combining strategic leadership with hands-on delivery.">
 <article class="wrapper marketing">
 <section class="hero">
+<div class="hero-copy">
 <p class="eyebrow">ABOUT SHAHZAD AKRAM</p>
 <h1>SEO experience built through doing the work</h1>
 <p>I’m Shahzad Akram, an SEO and digital growth specialist with more than 15 years’ experience across franchise businesses, lead generation and e-commerce.</p>
 <p>I’ve built websites, grown businesses, investigated performance problems and led projects involving developers, agencies and international teams.</p>
 <p>Today, my main focus is helping franchise and multi-location businesses connect search visibility with customer enquiries and sustainable website growth.</p>
 <p class="actions"><a href="/contact/">Discuss working together</a> · <a href="/work/">Explore my work</a></p>
+</div>
+<img class="portrait" src="/shahzad-akram-portrait.png" alt="Shahzad Akram, SEO consultant" width="1122" height="1402" loading="eager" fetchpriority="high" />
 </section>
 <section>
 <h2>My current role</h2>
@@ -120,4 +123,9 @@ import Layout from '../layouts/Layout.astro';
   .marketing a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
   @media(max-width:640px) { .marketing section { padding: var(--space-3) 0; } .marketing section:last-child { padding: var(--space-3); } .marketing h1 { font-size: clamp(2rem, 9vw, 3rem); } }
 
+  .marketing .hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero-copy { min-width: 0; }
+  .marketing .hero h1 { font-size: clamp(2.4rem, 4.2vw, 3.7rem); }
+  .marketing .hero .portrait { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border: 0; border-radius: 20px; box-shadow: 0 14px 40px rgba(44,70,54,.12); }
+  @media(max-width:800px) { .marketing .hero { grid-template-columns: 1fr; } .marketing .hero .portrait { max-width: 28rem; justify-self: center; } }
 </style>
