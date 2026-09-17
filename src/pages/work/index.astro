@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+const visuals = { 'world-options-franchise-seo': 'world-options', 'mail-boxes-etc-seo': 'mail-boxes-etc', 'pack-send-seo': 'pack-send' };
 
 const caseStudies = (await getCollection('work', ({ id, data }) => !data.draft && !id.startsWith('project-'))).sort(
   (a, b) => a.data.order - b.data.order
@@ -21,6 +22,7 @@ const caseStudies = (await getCollection('work', ({ id, data }) => !data.draft &
     {
       caseStudies.map((entry) => (
         <a class="case-study-card" href={`/work/${entry.id}`}>
+          {visuals[entry.id] && <img class="case-study-card__thumb" src={`/${visuals[entry.id]}-thumbnail.png`} alt={`${entry.data.title} — reported organic traffic results`} width="1200" height="800" loading="lazy" />}
           <div class="case-study-card__content">
             <div class="case-study-card__meta">
               {entry.data.year && <span>{entry.data.year}</span>}
@@ -104,4 +106,7 @@ const caseStudies = (await getCollection('work', ({ id, data }) => !data.draft &
     font-size: 0.95rem;
     color: var(--color-primary);
   }
+  .case-study-card:has(.case-study-card__thumb) { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .case-study-card__thumb { width: 100%; height: auto; border: 1px solid var(--color-border); border-radius: 12px; }
+  @media(max-width:640px) { .case-study-card:has(.case-study-card__thumb) { grid-template-columns: 1fr; } }
 </style>
