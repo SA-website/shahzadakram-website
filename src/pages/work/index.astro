@@ -1,20 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
+const visuals = { 'world-options-franchise-seo': 'world-options', 'mail-boxes-etc-seo': 'mail-boxes-etc', 'pack-send-seo': 'pack-send' };
 
-const caseStudies = (await getCollection('work', ({ data }) => !data.draft)).sort(
+const caseStudies = (await getCollection('work', ({ id, data }) => !data.draft && !id.startsWith('project-'))).sort(
   (a, b) => a.data.order - b.data.order
 );
 ---
 
-<Layout title="Work" description="Case studies from the ventures and projects I've built.">
+<Layout title="SEO Work & Case Studies" description="SEO case studies from franchise businesses and ventures, with results, reporting context and my role in the work.">
   <section class="wrapper prose page-header">
     <p class="eyebrow">Work</p>
-    <h1>A portfolio of what actually shipped.</h1>
+    <h1>SEO work, with the context behind the results.</h1>
     <p class="text-muted">
-      Deep-dive case studies, not logos on a slide. Each one covers the problem, the approach,
-      what happened, and what I'd do differently.
+      Selected work from franchise businesses and ventures I have built. Each case study explains
+      my role, the reported results and what those numbers can tell us.
     </p>
   </section>
 
@@ -22,11 +22,7 @@ const caseStudies = (await getCollection('work', ({ data }) => !data.draft)).sor
     {
       caseStudies.map((entry) => (
         <a class="case-study-card" href={`/work/${entry.id}`}>
-          <ImagePlaceholder
-            class="case-study-card__thumb"
-            ratio="3 / 2"
-            label={`${entry.data.title} — thumbnail`}
-          />
+          {visuals[entry.id] && <img class="case-study-card__thumb" src={`/${visuals[entry.id]}-thumbnail.png`} alt={`${entry.data.title} — reported organic traffic results`} width="1200" height="800" loading="lazy" />}
           <div class="case-study-card__content">
             <div class="case-study-card__meta">
               {entry.data.year && <span>{entry.data.year}</span>}
@@ -39,6 +35,13 @@ const caseStudies = (await getCollection('work', ({ data }) => !data.draft)).sor
         </a>
       ))
     }
+  </section>
+  <section class="wrapper prose page-header">
+    <h2>How to read these results</h2>
+    <p>Organic visits, search impressions and revenue measure different things. The case studies identify the reporting period and my role, and distinguish traffic growth from enquiries or sales. Work completed in employed roles involved colleagues and delivery partners.</p>
+    <h2>Discuss your website</h2>
+    <p>I help franchise and multi-location businesses connect SEO priorities with practical delivery.</p>
+    <p><a href="/contact/">Tell me about your website</a></p>
   </section>
 </Layout>
 
@@ -58,7 +61,9 @@ const caseStudies = (await getCollection('work', ({ data }) => !data.draft)).sor
 
   .case-study-card {
     display: grid;
-    grid-template-columns: 14rem 1fr;
+    grid-template-columns: 1fr;
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-3);
     gap: var(--space-3);
     align-items: start;
     text-decoration: none;
@@ -101,4 +106,7 @@ const caseStudies = (await getCollection('work', ({ data }) => !data.draft)).sor
     font-size: 0.95rem;
     color: var(--color-primary);
   }
+  .case-study-card:has(.case-study-card__thumb) { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .case-study-card__thumb { width: 100%; height: auto; border: 1px solid var(--color-border); border-radius: 12px; }
+  @media(max-width:640px) { .case-study-card:has(.case-study-card__thumb) { grid-template-columns: 1fr; } }
 </style>

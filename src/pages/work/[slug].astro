@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { TOPICS } from '../../content.config';
 
@@ -13,6 +12,7 @@ export async function getStaticPaths() {
   }));
 }
 
+const visuals = { 'world-options-franchise-seo': 'world-options', 'mail-boxes-etc-seo': 'mail-boxes-etc', 'pack-send-seo': 'pack-send' };
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
@@ -47,11 +47,7 @@ const jsonLd = {
         </div>
       )
     }
-    <ImagePlaceholder
-      class="case-study__hero"
-      ratio="16 / 9"
-      label={`${entry.data.title} — hero image`}
-    />
+    {visuals[entry.id] && <figure class="results-chart"><a href={`/${visuals[entry.id]}-results.png`} aria-label="Open full-size results chart"><img src={`/${visuals[entry.id]}-results.png`} alt={`${entry.data.title}. Organic session totals and comparison dates are provided in the results table below.`} width="1600" height="1000" loading="lazy" /></a><figcaption>Reported organic sessions, based on figures supplied by Shahzad Akram. <a href={`/${visuals[entry.id]}-results.png`}>View full-size chart</a>.</figcaption></figure>}
     <div class="case-study__body">
       <Content />
     </div>
@@ -108,7 +104,13 @@ const jsonLd = {
     margin-top: var(--space-4);
   }
 
-  .case-study__body h2 {
+  .case-study__body :global(h2) {
     margin-top: var(--space-4);
   }
+  .case-study__body { overflow-wrap: anywhere; }
+  .case-study__body :global(table) { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; font-size: 0.9rem; }
+  .case-study__body :global(th), .case-study__body :global(td) { border-bottom: 1px solid var(--color-border); padding: 0.65rem 0.4rem; text-align: left; }
+  .results-chart { margin: var(--space-4) 0; }
+  .results-chart img { width: 100%; height: auto; border: 1px solid var(--color-border); border-radius: 12px; }
+  .results-chart figcaption { font-size: .875rem; color: var(--color-text-muted); margin-top: .75rem; }
 </style>
