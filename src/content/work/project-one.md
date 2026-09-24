@@ -4,6 +4,7 @@ summary: "Placeholder summary — one sentence on the problem and the result."
 role: "Founder / SEO lead"
 year: "2024"
 order: 1
+draft: true
 ---
 
 ## The problem

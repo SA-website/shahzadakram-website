@@ -4,9 +4,11 @@ description: "Ten thousand customers and £430k in lifetime revenue later — th
 pillar: built-broken
 topics: [technical-seo, conversion-optimisation]
 pubDate: 2026-08-11
+draft: true
 ---
 
-*Draft — this post is referenced from the homepage but the full write-up isn't finished yet. Outline below.*
+*Unpublished — pending verified detail on the tracking fault described in the Shilajit UK case
+study. See the missing-facts list provided to Shahzad before this article can go live.*
 
 ## The headline numbers
 
@@ -14,12 +16,14 @@ pubDate: 2026-08-11
 
 ## The lesson that mattered most
 
-Placeholder — the tracking-bug story from the Shilajit UK case study, and what it changed about how I trust analytics dashboards on every project since.
+The tracking-bug story from the Shilajit UK case study, and what it changed about how I trust
+analytics dashboards on every project since — pending the precise technical cause of the fault.
 
 ## The other lessons
 
-Placeholder — supply chain, customer support at volume, and what "Subscribe and Save" actually did to retention.
+Supply chain, customer support at volume, and what "Subscribe and Save" actually did to
+retention — pending verified detail from business records.
 
 ## The verdict
 
-Placeholder — final take once the full write-up is done.
+Pending completion of the sections above.

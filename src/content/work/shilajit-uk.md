@@ -7,20 +7,28 @@ order: 0
 topics: [technical-seo, conversion-optimisation, website-migrations]
 ---
 
-*This case study is a work in progress — the numbers below are real, the full write-up is still being drafted.*
+Shilajit UK has done £430,000 in lifetime revenue across 10,800 customers since 2018 —
+self-funded, no outside investment.
 
 ## The problem
 
-Shilajit UK has done £430,000 in lifetime revenue across 10,800 customers since 2018 — self-funded, no outside investment. For a stretch of months, the analytics told a different story: a business that looked like it was dying, when it wasn't.
+For a stretch of months, the analytics told a different story from the underlying business: the
+dashboards suggested a collapse in orders during a period when the business was not, in fact,
+failing.
 
 ## What was actually broken
 
-A misconfiguration in the tracking setup was under-reporting real orders, making genuinely healthy trading periods look like a collapse in the dashboards. The full breakdown of what broke, how it was found, and the fix is coming in a follow-up post.
+A misconfiguration in the tracking setup was under-reporting real orders, making genuinely
+healthy trading periods look like a collapse in the dashboards.
 
 ## What happened
 
-Once the tracking was corrected, the numbers lined back up with reality — and the underlying business was never the problem. The lesson: verify what your analytics are telling you against your actual order data before you make decisions off it.
+Once the tracking was corrected, the numbers lined back up with reality — the underlying business
+was never the problem. The lesson: verify what your analytics are telling you against your actual
+order data before you make decisions off it.
 
 ## What I'd do differently
 
-Placeholder — the specific audit steps, the root cause, and the exact fix will be documented in full shortly.
+Investigate a sudden reported decline against order and payment records before treating the
+dashboard figure as fact. A conversion number that moves sharply without a corresponding change in
+the business is a signal to check the measurement first, not the marketing.

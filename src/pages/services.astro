@@ -2,38 +2,163 @@
 import Layout from '../layouts/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
-const services = [
+const coreServices = [
   {
-    name: 'GA4 tracking audits',
-    text: "The exact work behind the Shilajit UK case study — checking whether your analytics actually reflect what's happening in the business, not just whether the tag fires.",
+    id: 'franchise-recruitment-seo',
+    name: 'Franchise Recruitment SEO',
+    text: 'Help prospective franchisees find and understand the opportunity through clearer website structure, useful content and a better-defined enquiry journey.',
   },
   {
-    name: 'Technical SEO audits',
-    text: 'Crawl, indexation, site architecture, internal linking, and migration risk — the foundation issues that quietly cap everything else.',
+    id: 'seo-consultancy-leadership',
+    name: 'SEO Consultancy and Leadership',
+    text: 'Experienced support with strategy, prioritisation, agency and developer coordination, implementation and meaningful performance reporting.',
+  },
+  {
+    id: 'franchise-seo',
+    name: 'Franchise SEO',
+    text: 'Strategy and prioritisation for national and franchise-level search visibility across a multi-location brand.',
+  },
+  {
+    id: 'franchise-multi-location-seo',
+    name: 'Local and Multi-Location SEO',
+    text: 'Location pages, Google Business Profiles and service-area content working together so customers find the appropriate location.',
+  },
+  {
+    id: 'ga4-tracking-audits',
+    name: 'GA4 Tracking Audits',
+    text: 'Investigate whether reported conversions reflect genuine form submissions and business enquiries, and fix the gaps in between.',
+  },
+  {
+    id: 'technical-seo-migrations',
+    name: 'Technical SEO and Website Migrations',
+    text: 'Identify technical constraints or bring SEO into a rebuild before important decisions are fixed — architecture, URL planning, redirects, analytics and launch coordination.',
+  },
+];
+
+const offers = [
+  {
+    id: 'franchise-seo-network-review',
+    name: 'Franchise SEO Network Review',
+    intro:
+      'A structured review of how national services, locations, service areas, franchise recruitment and enquiry journeys work together.',
+    scopeLabel: 'The review can include:',
+    scope: [
+      'Website and page-type architecture.',
+      'Location and service-area coverage.',
+      'Internal linking between services and locations.',
+      'Google Business Profile arrangements and ownership.',
+      'Franchise recruitment content and discovery.',
+      'Enquiry routes and available measurement.',
+      'Responsibilities across head office, franchisees, agencies and developers.',
+    ],
+    deliverable:
+      'A prioritised plan explaining the issue, its likely significance, the recommended action, dependencies and the person or team best placed to take it forward.',
+    cta: 'Discuss a franchise SEO review',
+  },
+  {
+    id: 'website-migration-seo-review',
+    name: 'Website Migration SEO Review',
+    intro: 'SEO support for a redesign, platform change, domain move or international website launch.',
+    scopeLabel: 'The work can include:',
+    scope: [
+      'Website architecture and URL planning.',
+      'Content and metadata retention.',
+      'Redirect requirements.',
+      'Internal-linking changes.',
+      'Analytics and conversion measurement.',
+      'Pre-launch and launch checks.',
+      'Post-launch monitoring priorities.',
+    ],
+    deliverable: 'A migration requirements document and launch-checking plan appropriate to the agreed project stage.',
+    cta: 'Discuss a planned migration',
+  },
+  {
+    id: 'ga4-lead-tracking-audit',
+    name: 'GA4 and Lead-Tracking Audit',
+    intro:
+      'A focused investigation into whether reported website conversions correspond with genuine form submissions and business enquiries.',
+    scopeLabel: 'The audit can review:',
+    scope: [
+      'The actions currently recorded as conversions.',
+      'Form behaviour and confirmation states.',
+      'Tag and event configuration.',
+      'Attribution and UTM handling.',
+      'Differences between website, analytics and CRM records.',
+      'Testing and validation procedures.',
+    ],
+    deliverable:
+      'A tracking map, identified discrepancies, supporting evidence, recommended fixes and a process for validating the corrected setup.',
+    cta: 'Discuss a tracking audit',
   },
 ];
 ---
 
-<Layout title="Services" description="GA4 tracking audits and technical SEO audits — a limited number of engagements at a time.">
+<Layout
+  title="Services"
+  description="SEO support for franchise and multi-location businesses — network reviews, migration support and GA4 tracking audits."
+>
   <section class="wrapper prose page-header">
     <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Services' }]} />
     <p class="eyebrow">Services</p>
-    <h1>Need this fixed on your own site?</h1>
+    <h1>SEO support for complex websites and franchise networks</h1>
     <p class="text-muted">
-      I take on a limited number of GA4 tracking audits and technical SEO audits at a time — the
-      same work behind the <a href="/work/shilajit-uk">Shilajit UK case study</a>.
+      I help franchise and multi-location businesses identify what is limiting organic
+      performance, establish practical priorities and move the right work forward.
+    </p>
+    <p class="text-muted">
+      Support can cover an individual investigation, a defined website project or ongoing senior
+      SEO guidance. The appropriate scope depends on the objective, the available evidence and who
+      will be responsible for implementation.
     </p>
   </section>
 
-  <section class="wrapper services-list">
-    {
-      services.map((service) => (
-        <div class="service-card">
-          <h2>{service.name}</h2>
-          <p class="text-muted">{service.text}</p>
-        </div>
-      ))
-    }
+  <section class="wrapper core-services">
+    <p class="eyebrow">Core services</p>
+    <h2>Where I help</h2>
+    <div class="core-services__grid">
+      {
+        coreServices.map((service) => (
+          <div class="service-card" id={service.id}>
+            <h3>{service.name}</h3>
+            <p class="text-muted">{service.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrapper offers">
+    <p class="eyebrow">Defined starting offers</p>
+    <h2>A clear way to start</h2>
+    <div class="offers__list">
+      {
+        offers.map((offer) => (
+          <div class="offer-card" id={offer.id}>
+            <h3>{offer.name}</h3>
+            <p class="text-muted">{offer.intro}</p>
+            <p class="offer-card__scope-label">{offer.scopeLabel}</p>
+            <ul class="offer-card__scope">
+              {offer.scope.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            <p class="offer-card__deliverable">
+              <strong>Deliverable:</strong> {offer.deliverable}
+            </p>
+            <a class="button button--ghost" href="/contact">
+              {offer.cta}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <blockquote class="offers__qualification">
+      The precise checks and deliverables will be agreed before work begins. Access to analytics,
+      website platforms, tag management or CRM records may affect what can be verified. Where
+      evidence is incomplete, the findings will distinguish confirmed problems from reasonable
+      hypotheses.
+    </blockquote>
   </section>
 
   <section class="wrapper prose contact-cta">
@@ -49,16 +174,82 @@ const services = [
     padding-bottom: var(--space-3);
   }
 
-  .services-list {
+  .core-services {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-5);
+  }
+
+  .core-services__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3);
-    padding-bottom: var(--space-5);
+    margin-top: var(--space-3);
   }
 
   .service-card {
     padding: var(--space-3);
     border-top: 2px solid var(--color-primary);
+    scroll-margin-top: var(--space-3);
+  }
+
+  .service-card h3 {
+    margin-bottom: 0.4rem;
+  }
+
+  .service-card p {
+    margin-bottom: 0;
+  }
+
+  .offers {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .offers__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .offer-card {
+    padding: var(--space-4);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-card);
+    max-width: var(--content-width);
+    scroll-margin-top: var(--space-3);
+  }
+
+  .offer-card h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .offer-card__scope-label {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: var(--space-2) 0 0.5rem;
+  }
+
+  .offer-card__scope {
+    margin: 0 0 var(--space-3);
+    padding-left: 1.1rem;
+    color: var(--color-text-muted);
+  }
+
+  .offer-card__scope li {
+    margin-bottom: 0.3em;
+  }
+
+  .offer-card__deliverable {
+    margin-bottom: var(--space-3);
+    color: var(--color-text-muted);
+  }
+
+  .offers__qualification {
+    max-width: var(--content-width);
+    margin: var(--space-4) 0 0;
   }
 
   .contact-cta {
@@ -66,7 +257,7 @@ const services = [
   }
 
   @media (max-width: 640px) {
-    .services-list {
+    .core-services__grid {
       grid-template-columns: 1fr;
     }
   }

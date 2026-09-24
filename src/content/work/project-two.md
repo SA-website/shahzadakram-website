@@ -4,6 +4,7 @@ summary: "Placeholder summary — one sentence on the problem and the result."
 role: "SEO consultant"
 year: "2023"
 order: 2
+draft: true
 ---
 
 ## The problem

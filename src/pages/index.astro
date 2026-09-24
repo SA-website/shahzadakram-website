@@ -4,17 +4,16 @@ import Layout from '../layouts/Layout.astro';
 import Marquee from '../components/Marquee.astro';
 
 const marqueeItems = [
-  'Technical SEO',
-  'GA4 Tracking Audits',
-  'Conversion Optimisation',
-  'E-commerce Growth',
-  'AI Search Optimisation',
+  'Franchise & Multi-Location SEO',
+  'Franchise Recruitment SEO',
+  'Technical SEO & Migrations',
+  'SEO Consultancy & Leadership',
 ];
 
 const entryCards = [
   {
     name: 'About',
-    text: "The real story — SEO career, ventures built, and what I've learned from the ones that didn't work.",
+    text: 'SEO experience built through doing the work — career history and how I approach a project.',
     href: '/about',
     cta: 'Read more',
   },
@@ -26,41 +25,81 @@ const entryCards = [
   },
   {
     name: 'Blog',
-    text: "Field notes, honest venture write-ups, and ideas I'm thinking through in public.",
+    text: "Field notes, honest case studies, and ideas I'm assessing in public.",
     href: '/blog',
     cta: 'Read the blog',
+  },
+];
+
+const stats = [
+  { value: '6', label: 'Websites across a multi-brand portfolio' },
+  { value: '191 + 335', label: 'Physical store pages and virtual service office pages' },
+  { value: '9', label: 'Major website launches and migrations across the UK, US and Australia' },
+];
+
+const serviceIntros = [
+  {
+    heading: 'Help customers find the appropriate location',
+    text: 'National service pages, location pages, Google Business Profiles and service-area content should work together. I help improve how customers discover your services, identify the appropriate location and move from search to a useful enquiry route.',
+    cta: 'Explore local and multi-location SEO',
+    href: '/services#franchise-multi-location-seo',
+  },
+  {
+    heading: 'Help prospective franchisees understand the opportunity',
+    text: 'Franchise recruitment serves a different audience. Prospective owners need clear information about the business model, investment, available territories, training, support and suitability before they are ready to enquire.\n\nI help organise recruitment websites around that decision journey, improving both organic discovery and the route to an informed enquiry.',
+    cta: 'Explore franchise recruitment SEO',
+    href: '/services#franchise-recruitment-seo',
+  },
+];
+
+const serviceCategories = [
+  {
+    heading: 'Franchise and multi-location SEO',
+    text: 'Create a joined-up search strategy across national services, locations and service areas. Identify gaps in local visibility and prioritise improvements across the network.',
+  },
+  {
+    heading: 'Franchise recruitment SEO',
+    text: 'Help prospective franchisees find and understand the opportunity through clearer website structure, useful content and a better-defined enquiry journey.',
+  },
+  {
+    heading: 'Technical SEO and website migrations',
+    text: 'Identify technical constraints or bring SEO into a rebuild before important decisions are fixed. Support can cover website architecture, URL planning, redirects, analytics, launch coordination and post-launch checks.',
+  },
+  {
+    heading: 'SEO consultancy and leadership',
+    text: 'Get experienced support with strategy, prioritisation, agency and developer coordination, implementation and meaningful performance reporting.',
   },
 ];
 
 const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 2);
-
-const contactLinks = [
-  { label: 'Email', value: 'contact@shahzadakram.com', href: 'mailto:contact@shahzadakram.com' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/shahzad-akram-b8159b5b', href: 'https://www.linkedin.com/in/shahzad-akram-b8159b5b/' },
-];
 ---
 
 <Layout
   title="Shahzad Akram"
-  pageTitle="Shahzad Akram | SEO, Digital Marketing & E-commerce"
-  description="SEO and digital marketing insights from Shahzad Akram — real case studies, tracking audits, and lessons from building e-commerce ventures."
+  pageTitle="Shahzad Akram | Franchise &amp; Multi-Location SEO"
+  description="SEO for franchise and multi-location businesses. Shahzad Akram connects national search strategy, local visibility, franchise recruitment and website delivery."
 >
   <section class="wrapper hero">
-    <p class="eyebrow">Shahzad Akram</p>
-    <h1>Shahzad Akram</h1>
+    <p class="eyebrow">Franchise &amp; multi-location SEO</p>
+    <h1>SEO for franchise and multi-location businesses</h1>
     <p class="prose text-muted hero__lede">
-      SEO and digital marketing — case studies, audits, and honest lessons from building my own
-      ventures.
+      Help more customers find your locations—and more prospective franchisees discover your
+      opportunity.
     </p>
     <p class="prose text-muted hero__lede">
-      I work across SEO, GA4 analytics, and e-commerce, and I write about what actually happens
-      when you build things, including the parts that don't go to plan.
+      I'm Shahzad Akram. I help franchise and multi-location businesses connect national search
+      strategy, local visibility, franchise recruitment and website delivery.
+    </p>
+    <p class="prose text-muted hero__lede">
+      With more than 15 years' experience, I have led search strategy across World Options, Mail
+      Boxes Etc. UK and PACK &amp; SEND UK, supporting six websites, approximately 191 physical
+      store pages and 335 virtual service office pages.
     </p>
     <div class="hero__ctas">
-      <a class="button" href="/work">See the work</a>
-      <a class="button button--ghost" href="/blog">Read the blog</a>
+      <a class="button" href="/contact">Discuss your project</a>
+      <a class="button button--ghost" href="/work">Explore my work</a>
     </div>
   </section>
 
@@ -80,15 +119,98 @@ const contactLinks = [
     }
   </section>
 
+  <section class="wrapper stats">
+    <div class="stats__grid">
+      {
+        stats.map((stat) => (
+          <div class="stat">
+            <p class="stat__value">{stat.value}</p>
+            <p class="stat__label">{stat.label}</p>
+          </div>
+        ))
+      }
+    </div>
+    <blockquote class="stats__note">
+      The work involves more than optimising individual pages. It means understanding how
+      national services, local locations, franchise recruitment, website platforms and enquiry
+      journeys fit together—and helping the people responsible for delivery move the right work
+      forward.
+    </blockquote>
+  </section>
+
+  <section class="wrapper prose breakdown">
+    <p class="eyebrow">Where the work starts</p>
+    <h2>Where franchise SEO usually breaks down</h2>
+    <p class="text-muted">
+      Franchise SEO rarely fails because nobody can identify anything to improve. It often breaks
+      down between the people, platforms and priorities involved.
+    </p>
+    <p class="text-muted">
+      Head office controls the brand. Franchisees need local visibility. Agencies make
+      recommendations. Developers manage implementation. Different websites may serve customers,
+      locations and prospective franchisees, while network-wide reporting can make it difficult to
+      see which areas actually benefit.
+    </p>
+    <p class="text-muted">
+      I help connect those parts: identifying the real constraint, setting practical priorities,
+      clarifying responsibilities and helping agreed improvements reach the live website.
+    </p>
+  </section>
+
+  <section class="wrapper service-intro">
+    <p class="eyebrow">Search growth across the whole franchise network</p>
+    <h2 class="service-intro__heading">Two audiences, one website</h2>
+    <div class="service-intro__grid">
+      {
+        serviceIntros.map((item) => (
+          <div class="service-intro__card">
+            <h3>{item.heading}</h3>
+            {item.text.split('\n\n').map((para) => (
+              <p class="text-muted">{para}</p>
+            ))}
+            <a class="link-arrow" href={item.href}>
+              {item.cta} &rarr;
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrapper service-categories">
+    <p class="eyebrow">Services</p>
+    <h2 class="service-categories__heading">Where I help</h2>
+    <div class="service-categories__grid">
+      {
+        serviceCategories.map((item) => (
+          <div class="service-category">
+            <h3>{item.heading}</h3>
+            <p class="text-muted">{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+    <a class="link-arrow" href="/services">See all services &rarr;</a>
+  </section>
+
   <section class="wrapper prose case-study-strip">
     <p class="eyebrow">Featured</p>
-    <h2>Shilajit UK</h2>
+    <h2>Practical experience on both sides of the website</h2>
     <p class="text-muted">
-      £430k in lifetime revenue, 10,800 customers — and a broken tracking setup that made a
-      working business look like a failing one for months. Here's what I found and what I did
-      about it.
+      Alongside employed SEO leadership roles, I built and operated Shilajit UK on Shopify. That
+      meant responsibility not only for the website and marketing, but also sourcing, inventory,
+      fulfilment, customer service and the accuracy of the information used to make commercial
+      decisions.
     </p>
-    <a class="link-arrow" href="/work/shilajit-uk">Read the case study &rarr;</a>
+    <p class="text-muted">
+      That experience changed how I approach SEO and analytics. Rankings and traffic matter, but
+      so do enquiry quality, conversion measurement, operational capacity and whether the figures
+      accurately represent what is happening inside the business.
+    </p>
+    <div class="case-study-strip__ctas">
+      <a class="link-arrow" href="/work/shilajit-uk">Read the Shilajit UK case study &rarr;</a>
+      <a class="link-arrow" href="/about">More about me &rarr;</a>
+    </div>
   </section>
 
   <section class="wrapper blog-teaser">
@@ -110,31 +232,19 @@ const contactLinks = [
     <a class="button button--ghost" href="/blog">View all posts</a>
   </section>
 
-  <section class="wrapper prose services-teaser">
-    <p class="eyebrow">Services</p>
-    <h2>Need this fixed on your own site?</h2>
-    <p class="text-muted">
-      I take on a limited number of GA4 tracking audits and technical SEO audits — the exact work
-      behind the Shilajit UK case study.
-    </p>
-    <a class="link-arrow" href="/services">See services &rarr;</a>
-  </section>
-
   <section class="wrapper prose footer-cta">
     <p class="eyebrow">Get in touch</p>
-    <h2>Get in touch</h2>
-    <div class="footer-cta__links">
-      {
-        contactLinks.map((link, i) => (
-          <>
-            <a href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
-              {link.label}
-            </a>
-            {i < contactLinks.length - 1 && <span class="footer-cta__sep">&middot;</span>}
-          </>
-        ))
-      }
-    </div>
+    <h2>Let's discuss what is preventing progress</h2>
+    <p class="text-muted">
+      Whether you manage a franchise network, are preparing for a website migration or need an
+      experienced second opinion on search performance and measurement, tell me what you are
+      working on.
+    </p>
+    <p class="text-muted">
+      Share your website, the main problem and the people involved. I will reply personally so we
+      can establish whether my experience fits the work.
+    </p>
+    <a class="button" href="/contact">Discuss your project</a>
   </section>
 </Layout>
 
@@ -146,6 +256,7 @@ const contactLinks = [
 
   .hero h1 {
     margin-bottom: var(--space-3);
+    max-width: 38rem;
   }
 
   .hero__lede {
@@ -163,8 +274,8 @@ const contactLinks = [
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-3);
-    padding-top: var(--space-5);
-    padding-bottom: var(--space-5);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
   }
 
   .entry-card {
@@ -200,6 +311,111 @@ const contactLinks = [
     color: var(--color-accent);
   }
 
+  .stats {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .stat {
+    padding: var(--space-3);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-card);
+  }
+
+  .stat__value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.25rem;
+    color: var(--color-primary);
+    margin: 0 0 0.4rem;
+    line-height: 1;
+  }
+
+  .stat__label {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .stats__note {
+    max-width: var(--content-width);
+    margin: 0;
+  }
+
+  .breakdown {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .service-intro {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .service-intro__heading {
+    margin-bottom: var(--space-3);
+  }
+
+  .service-intro__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .service-intro__card {
+    padding: var(--space-4);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-card);
+  }
+
+  .service-intro__card h3 {
+    margin-bottom: 0.6rem;
+  }
+
+  .service-intro__card p {
+    margin-bottom: var(--space-2);
+  }
+
+  .service-categories {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-5);
+  }
+
+  .service-categories__heading {
+    margin-bottom: var(--space-3);
+  }
+
+  .service-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .service-category {
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  .service-category h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .service-category p {
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+  }
+
   .case-study-strip {
     margin-top: var(--space-1);
     margin-bottom: var(--space-5);
@@ -232,6 +448,13 @@ const contactLinks = [
     color: var(--color-accent-light);
   }
 
+  .case-study-strip__ctas {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+  }
+
   .link-arrow {
     display: inline-block;
     margin-top: var(--space-2);
@@ -241,6 +464,7 @@ const contactLinks = [
   }
 
   .blog-teaser {
+    padding-top: var(--space-4);
     padding-bottom: var(--space-5);
   }
 
@@ -290,31 +514,21 @@ const contactLinks = [
     margin-top: 0.5rem;
   }
 
-  .services-teaser {
+  .footer-cta {
     padding-top: var(--space-4);
-    padding-bottom: var(--space-5);
+    padding-bottom: var(--space-6);
     border-top: 1px solid var(--color-border);
   }
 
-  .footer-cta {
-    padding-bottom: var(--space-6);
-  }
-
-  .footer-cta__links {
-    display: flex;
-    gap: var(--space-2);
-    align-items: center;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    margin-top: var(--space-2);
-  }
-
-  .footer-cta__sep {
-    color: var(--color-text-muted);
+  .footer-cta p.text-muted {
+    max-width: var(--content-width);
   }
 
   @media (max-width: 800px) {
     .entry-cards,
+    .stats__grid,
+    .service-intro__grid,
+    .service-categories__grid,
     .links-out {
       grid-template-columns: 1fr;
     }

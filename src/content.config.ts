@@ -55,15 +55,18 @@ export const collections = { blog, work, pillars: seoPillars };
 export const PILLARS = {
   'field-notes': {
     label: 'Field Notes',
-    description: 'Practical SEO and marketing deep-dives — technical and evergreen.',
+    description:
+      'Substantial, evidence-led explanations drawn from practical SEO, analytics, website and migration work — useful to someone responsible for delivery.',
   },
   'built-broken': {
     label: 'Built & Broken',
-    description: 'Honest venture case studies, including the failures.',
+    description:
+      'Honest case studies from businesses and websites I have helped build or operate — the decisions that worked, the assumptions that were wrong, and what changed afterwards.',
   },
   'idea-log': {
     label: 'Idea Log',
-    description: 'Short posts thinking out loud about business ideas and niches, each ending in a verdict.',
+    description:
+      'Short assessments of business, product or website ideas — the case for, the case against, and a plain final verdict.',
   },
 } as const;
 

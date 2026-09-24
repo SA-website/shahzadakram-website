@@ -6,11 +6,13 @@ topics: [technical-seo, conversion-optimisation]
 pubDate: 2026-08-11
 ---
 
-*Draft — this post is referenced from the homepage but the full write-up isn't finished yet. Outline below.*
+Traffic is arriving. Ad spend is real. Conversions in GA4 report near zero. The instinct is to
+blame the ads or the landing page.
 
 ## The symptom
 
-Traffic is arriving. Ad spend is real. Conversions in GA4 report near zero. The instinct is to blame the ads or the landing page.
+A conversion count that drops sharply, or sits at zero, while traffic and spend continue as
+normal is unusual enough to investigate before making any change to the campaigns.
 
 ## The actual checklist, before touching the ads
 
@@ -21,4 +23,6 @@ Traffic is arriving. Ad spend is real. Conversions in GA4 report near zero. The 
 
 ## The verdict
 
-Placeholder — full narrative and the specific fix from the Shilajit UK case to be added.
+A conversion number that moves sharply without a corresponding change in the underlying business
+is a measurement question first, and a marketing question second. Ruling out tracking before
+touching the ads saves budget and avoids decisions made on bad data.

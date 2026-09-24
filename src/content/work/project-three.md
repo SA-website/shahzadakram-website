@@ -4,6 +4,7 @@ summary: "Placeholder summary — one sentence on the problem and the result."
 role: "Founder"
 year: "2022"
 order: 3
+draft: true
 ---
 
 ## The problem

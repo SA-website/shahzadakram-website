@@ -1,42 +1,140 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+
+const howIThink = [
+  {
+    heading: 'Start with the objective',
+    text: 'SEO activity only becomes useful when the intended outcome is clear. The starting point might be customer acquisition, franchise recruitment, local visibility, a migration, a tracking problem or a decline that needs investigating.',
+  },
+  {
+    heading: 'Separate evidence from assumption',
+    text: 'I review the available search data, analytics, website behaviour and operational context. Where the evidence is incomplete, or several explanations remain possible, I make that clear rather than presenting certainty that the data does not support.',
+  },
+  {
+    heading: 'Find the constraint',
+    text: 'The most visible problem is not always the real problem. Traffic may be growing while enquiry quality declines. A sound recommendation may remain ineffective because nobody owns implementation. A dashboard may be functioning technically while reporting the wrong business outcome.',
+  },
+  {
+    heading: 'Make the work deliverable',
+    text: 'Recommendations need to reflect the platform, people, budget and dependencies involved. I translate findings into priorities, responsibilities and implementation steps that the relevant team can act upon.',
+  },
+  {
+    heading: 'Review what happened',
+    text: 'Once work is delivered, I check the result, explain what changed and use the findings to determine what deserves attention next.',
+  },
+];
+
+const whereICanHelp = [
+  {
+    heading: 'Franchise and multi-location SEO',
+    text: 'Create a joined-up search strategy across national services, locations and service areas. Identify gaps in local visibility and prioritise improvements across the network.',
+  },
+  {
+    heading: 'Franchise recruitment SEO',
+    text: 'Help prospective franchisees find and understand the opportunity through clearer website structure, useful content and a better-defined enquiry journey.',
+  },
+  {
+    heading: 'Technical SEO and website migrations',
+    text: 'Identify technical constraints or bring SEO into a rebuild before important decisions are fixed. Support can cover website architecture, URL planning, redirects, analytics, launch coordination and post-launch checks.',
+  },
+  {
+    heading: 'SEO consultancy and leadership',
+    text: 'Get experienced support with strategy, prioritisation, agency and developer coordination, implementation and meaningful performance reporting.',
+  },
+];
 ---
 
-<Layout title="About" description="The SEO career, the ventures built and broken, and what I'm focused on now.">
+<Layout
+  title="About"
+  description="SEO experience built through doing the work — how Shahzad Akram approaches franchise and multi-location SEO."
+>
   <section class="wrapper page-header">
     <div class="page-header__text prose">
-      <p class="eyebrow">About</p>
-      <h1>The real story, not the highlight reel.</h1>
+      <p class="eyebrow">About Shahzad Akram</p>
+      <h1>SEO experience built through doing the work</h1>
+      <p class="text-muted">
+        I'm Shahzad Akram, an SEO and digital growth specialist with more than 15 years'
+        experience across franchise businesses, lead generation, website development and
+        e-commerce.
+      </p>
+      <p class="text-muted">
+        I have spent my career working on websites that need to generate real business—not simply
+        rankings and reports. I have built websites, developed lead-generation businesses,
+        investigated performance problems, coordinated agencies and developers, and operated a
+        product business through periods of growth and decline.
+      </p>
+      <p class="text-muted">
+        That combination shapes how I approach SEO: understand the commercial objective, identify
+        the true constraint, establish what the evidence supports and turn the findings into work
+        that can actually be delivered.
+      </p>
+      <div class="page-header__ctas">
+        <a class="button" href="/contact">Discuss working together</a>
+        <a class="button button--ghost" href="/work">Explore my work</a>
+      </div>
     </div>
     <ImagePlaceholder class="page-header__portrait" ratio="4 / 5" label="Portrait photo" />
   </section>
 
-  <section class="wrapper prose">
-    <h2>The SEO career</h2>
+  <section class="wrapper prose current-role">
+    <h2>My current role</h2>
     <p class="text-muted">
-      Placeholder — how the career actually started, the early wins, the years spent learning the
-      hard way. Name the companies and campaigns that matter. State the specific mechanics that
-      worked, not just the outcome.
+      I lead SEO and digital growth across World Options, Mail Boxes Etc. UK and PACK &amp; SEND
+      UK, with responsibility for organic-search priorities and website performance across six
+      websites.
     </p>
-
-    <h2>Ventures built</h2>
     <p class="text-muted">
-      Placeholder — a plain list of the ventures, in order, each with a one-line verdict. Link out
-      to the relevant <a href="/work">case studies</a> where there's a deeper write-up.
+      The work spans national services, local franchise visibility and franchise recruitment,
+      including approximately 191 physical store pages and 335 virtual service office pages.
     </p>
-
-    <h2>What failed, and why</h2>
     <p class="text-muted">
-      Placeholder — the ventures that didn't work, stated as plainly as the ones that did. What
-      broke, what I misjudged, what I'd do differently. This section should read like an
-      after-action report, not an apology.
+      My responsibilities connect strategy with delivery: deciding what deserves attention,
+      coordinating improvements with marketing teams, franchisees, developers and agencies, and
+      explaining performance to senior stakeholders. This work is completed in employed roles and
+      involves colleagues, agencies and delivery partners.
     </p>
+  </section>
 
-    <h2>Current focus</h2>
-    <p class="text-muted">
-      Placeholder — what I'm actually spending my time on right now. Keep this in sync with
-      <a href="/now">/now</a>.
+  <section class="wrapper how-i-think">
+    <p class="eyebrow">Approach</p>
+    <h2>How I think about the work</h2>
+    <div class="how-i-think__list">
+      {
+        howIThink.map((item, i) => (
+          <div class="how-i-think__item">
+            <span class="how-i-think__number">{i + 1}</span>
+            <div>
+              <h3>{item.heading}</h3>
+              <p class="text-muted">{item.text}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrapper where-i-help">
+    <p class="eyebrow">Where I can help</p>
+    <h2>Where I can help</h2>
+    <div class="where-i-help__grid">
+      {
+        whereICanHelp.map((item) => (
+          <div class="where-i-help__card">
+            <h3>{item.heading}</h3>
+            <p class="text-muted">{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+    <a class="link-arrow" href="/services">See all services &rarr;</a>
+  </section>
+
+  <section class="wrapper prose author-note">
+    <p class="text-muted author-note__text">
+      Outside SEO and business, I write fiction under the pen name Alexei Sassani. I keep that
+      work separate from this website so the purpose here remains clear: practical SEO support
+      for franchise and multi-location organisations.
     </p>
   </section>
 </Layout>
@@ -46,13 +144,20 @@ import ImagePlaceholder from '../components/ImagePlaceholder.astro';
     display: grid;
     grid-template-columns: 1fr 12rem;
     gap: var(--space-4);
-    align-items: end;
+    align-items: start;
     padding-top: var(--space-4);
     padding-bottom: var(--space-4);
   }
 
   .page-header__text {
     max-width: none;
+  }
+
+  .page-header__ctas {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    flex-wrap: wrap;
   }
 
   @media (max-width: 640px) {
@@ -65,15 +170,105 @@ import ImagePlaceholder from '../components/ImagePlaceholder.astro';
     }
   }
 
-  section.prose {
+  .current-role {
     padding-bottom: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
   }
 
-  section.prose h2 {
-    margin-top: var(--space-4);
+  .how-i-think {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-top: 1px solid var(--color-border);
   }
 
-  section.prose h2:first-of-type {
-    margin-top: 0;
+  .how-i-think__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    max-width: var(--content-width);
+  }
+
+  .how-i-think__item {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .how-i-think__number {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .how-i-think__item h3 {
+    margin-bottom: 0.4rem;
+  }
+
+  .how-i-think__item p {
+    margin-bottom: 0;
+  }
+
+  .where-i-help {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .where-i-help__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin: var(--space-3) 0;
+  }
+
+  .where-i-help__card {
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  .where-i-help__card h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .where-i-help__card p {
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+  }
+
+  .link-arrow {
+    display: inline-block;
+    margin-top: var(--space-1);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .author-note {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .author-note__text {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 800px) {
+    .where-i-help__grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
